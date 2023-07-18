@@ -34,13 +34,30 @@ string handle_input_order(string s)
 //}
 
 // ===== Command line =====
+int check_command(int argc, char** argv)
+{
+	if ((string)argv[1] == "-a") {
+		if (argc == 5) {
+			string check = argv[3];
+			if (check[check.size() - 1] >= '0' && check[check.size() - 1] <= '9')
+				return 3;
+			else
+				return 1;
+		}
+		else return 2;
+	}
+	else if ((string)argv[1] == "-c") {
+		if (argc == 5)	return 4;
+		else
+			return 5;
+	}
+}
+
+
 void command1(char** argv)
 {
-	string require = argv[2];
+	string require = handle_algorithm_name(argv[2]);
 	string fp = argv[3];
-	string requireOutput = argv[4];
-
-
 
 
 	// ===== print in the format =====
@@ -49,13 +66,13 @@ void command1(char** argv)
 	cout << "Input file: " << fp << endl;
 	//cout << "Input size: " << 
 	cout << "-------------------\n";
-	if (requireOutput == "-time") {
+	if (argv[4] == "-time") {
 		cout << "Running time: " << endl;
 	}
-	else if (requireOutput == "-comp") {
+	else if (argv[4] == "-comp") {
 		cout << "Comparisons: " << endl;
 	}
-	else if (requireOutput == "-both") {
+	else if (argv[4] == "-both") {
 		cout << "Running time: " << endl;
 		cout << "Comparisons: " << endl;
 	}
