@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-	command2(argv);
+	cout << "HCMUS HCMUS HCMUS";
 
 	return 0;
 }
