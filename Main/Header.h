@@ -31,5 +31,8 @@ string handle_input_order(string s);
 
 
 // ===== Command line =====
+// check type of command line
+int check_command(int argc, char** argv);
+// All command lines
 void command1(char** argv);
 void command2(char** argv);
