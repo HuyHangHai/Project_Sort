@@ -36,3 +36,6 @@ int check_command(int argc, char** argv);
 // All command lines
 void command1(char** argv);
 void command2(char** argv);
+void command3(char** argv);
+void command4(char** argv);
+void command5(char** argv);
