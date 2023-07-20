@@ -109,8 +109,19 @@ void command3(char** argv)
 	string alg = handle_algorithm_name(argv[2]);
 	int inputSize = stoi(argv[3]);
 	string requireOutput = argv[4];
+
+	int* a = new int[inputSize];
+	GenerateData(a, inputSize, 0);
+	WriteFile("input1.txt", a, inputSize);
+	GenerateData(a, inputSize, 1);
+	WriteFile("input2.txt", a, inputSize);
+	GenerateData(a, inputSize, 2);
+	WriteFile("input3.txt", a, inputSize);
+	GenerateData(a, inputSize, 3);
+	WriteFile("input4.txt", a, inputSize);
 	
 	//Sort
+
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -167,7 +178,7 @@ void command3(char** argv)
 		cout << "Running time: " << endl;
 		cout << "Comparisons: " << endl << endl;
 	}
-
+	delete[]a;
 }
 
 void command4(char** argv)
@@ -203,8 +214,32 @@ void command5(char** argv)
 	string alg2 = handle_algorithm_name(argv[3]);
 	int inputSize = stoi(argv[4]);
 	string inputOrder = handle_input_order(argv[5]);
+	int* a = new int[inputSize];
+	string fileName = "input.txt";
+
+	if (inputOrder == "Randomize")
+	{
+		GenerateData(a, inputSize, 0);
+		WriteFile(fileName, a, inputSize);
+	}
+	else if (inputOrder == "Sorted")
+	{
+		GenerateData(a, inputSize, 1);
+		WriteFile(fileName, a, inputSize);
+	}
+	else if (inputOrder == "Reverse")
+	{
+		GenerateData(a, inputSize, 2);
+		WriteFile(fileName, a, inputSize);
+	}
+	else
+	{
+		GenerateData(a, inputSize, 3);
+		WriteFile(fileName, a, inputSize);
+	}
 
 	//Sort
+	
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -213,7 +248,8 @@ void command5(char** argv)
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
 	cout << "Running time: " << endl;
-	cout << "Comparisons: " << endl << endl;
+	cout << "Comparisons: " << " | " << endl << endl;
+	delete []a;
 }
 
 
@@ -249,5 +285,41 @@ void ShellSort(int* a, int n)							//Khoi edited
 			}
 			a[j + gap] = temp;
 		}
+	}
+}
+
+void ShakerSort(int a[], int n, double &count) 
+{
+	int left, right, k, i;
+	left = 0;
+	right = n - 1;
+	k = 0;
+	count = 0;
+	while (left < right) 
+	{
+		count++;
+		for (i = left; i < right; i++)
+		{
+			count++;
+			if (a[i] > a[i + 1])
+			{
+				swap(a[i], a[i + 1]);
+				k = i;
+			}
+			count++;
+		}
+		right = k;
+
+		for (i = right; i > left; i--)
+		{
+			count++;
+			if (a[i] < a[i - 1]) 
+			{
+				swap(a[i], a[i - 1]);
+				k = i;
+			}
+			count++;
+		}
+		left = k;
 	}
 }
