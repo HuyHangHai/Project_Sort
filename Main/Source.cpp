@@ -53,7 +53,6 @@ int check_command(int argc, char** argv)
 	}
 }
 
-
 void command1(char** argv)
 {
 	string require = handle_algorithm_name(argv[2]);
@@ -215,4 +214,40 @@ void command5(char** argv)
 	cout << "-------------------\n";
 	cout << "Running time: " << endl;
 	cout << "Comparisons: " << endl << endl;
+}
+
+
+//================SORTING====================
+
+void InsertionSort(int* a, int n)						//Khoi edited
+{
+	for (int i = 1; i < n; i++)
+	{
+		int key = a[i];
+		int j = i - 1;
+		while (a[j] > key && j >= 0)
+		{
+			a[j + 1] = a[j];
+			j--;
+		}
+		a[j + 1] = key;
+	}
+}
+
+void ShellSort(int* a, int n)							//Khoi edited
+{
+	for (int gap = n / 2; gap >= 1; gap /= 2)
+	{
+		for (int i = gap; i < n; i++)
+		{
+			int temp = a[i];
+			int j = i - gap;
+			while (j >= 0 && temp < a[j])
+			{
+				a[j + gap] = a[j];
+				j -= gap;
+			}
+			a[j + gap] = temp;
+		}
+	}
 }

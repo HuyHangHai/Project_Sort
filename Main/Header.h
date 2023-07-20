@@ -39,3 +39,8 @@ void command2(char** argv);
 void command3(char** argv);
 void command4(char** argv);
 void command5(char** argv);
+
+//================SORTING====================
+
+void InsertionSort(int* a, int n);
+void ShellSort(int* a, int n);
