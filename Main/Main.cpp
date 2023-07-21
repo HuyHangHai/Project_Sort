@@ -19,17 +19,17 @@ int main(int argc, char** argv)
 		}
 		case 3:
 		{
-			/*command3(argv);*/
+			command3(argv);
 			break;
 		}
 		case 4:
 		{
-			/*command4(argv);*/
+			command4(argv);
 			break;
 		}
 		case 5:
 		{
-			/*command5(argv);*/
+			command5(argv);
 			break;
 		}
 	default:
