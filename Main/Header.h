@@ -28,6 +28,7 @@ void GenerateData(int a[], int n, int dataType);
 // ===== handle input =====
 string handle_algorithm_name(string require);
 string handle_input_order(string s);
+void WriteFile(string file_name, int a[], int n);
 
 
 // ===== Command line =====
@@ -47,3 +48,5 @@ void ShellSort(int* a, int n);
 void ShakerSort(int a[], int n, double &count);
 void Heapify(int arr[], int n, int i, double &count);
 void HeapSort(int arr[], int n, double &count);
+void BubbleSort(int* a, int n);
+void SelectionSort(int* a, int n);

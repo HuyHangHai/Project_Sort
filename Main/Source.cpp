@@ -27,12 +27,6 @@ string handle_input_order(string s)
 		return "Reverse";
 }
 
-
-//void bubble_sort(int* a, int n)
-//{
-//	
-//}
-
 // ===== Command line =====
 int check_command(int argc, char** argv)
 {
@@ -56,14 +50,26 @@ int check_command(int argc, char** argv)
 void command1(char** argv)
 {
 	string require = handle_algorithm_name(argv[2]);
-	string fp = argv[3];
+
+	// read data from input file
+	ifstream f(argv[3]);
+
+	int inputSize = 0;
+	f >> inputSize;
+
+	int* a = new int[inputSize];
+	for (int i = 0; i < inputSize; i++)
+		f >> a[i];
+	f.close();
+
+	// calculate running time and comparisons
 
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
 	cout << "Algorithm: " << require << endl;
-	cout << "Input file: " << fp << endl;
-	//cout << "Input size: " << 
+	cout << "Input file: " << argv[3] << endl;
+	cout << "Input size: " << inputSize << endl;
 	cout << "-------------------\n";
 	if (argv[4] == "-time") {
 		cout << "Running time: " << endl;
@@ -75,13 +81,38 @@ void command1(char** argv)
 		cout << "Running time: " << endl;
 		cout << "Comparisons: " << endl;
 	}
+
+	// ====== record data to file =====
+	WriteFile("output.txt", a, inputSize);
+
+	delete[] a;
 }
 
 void command2(char** argv)
 {
 	string require = handle_algorithm_name(argv[2]);
 	int inputSize = stoi(argv[3]);
+	int* a = new int[inputSize];
 	string inputOrder = handle_input_order(argv[4]);
+
+	// handle input
+	if ((string)argv[4] == "-rand") {
+		GenerateRandomData(a, inputSize);
+	}
+	else if ((string)argv[4] == " -nsorted") {
+		GenerateNearlySortedData(a, inputSize);
+	}
+	else if ((string)argv[4] == "-sorted") {
+		GenerateSortedData(a, inputSize);
+	}
+	else if ((string)argv[4] == "-rev") {
+		GenerateReverseData(a, inputSize);
+	}
+
+	// ====== record data to file =====
+	WriteFile("input.txt", a, inputSize);
+
+	// ====== calculate running time and comparisons ======
 
 
 	// ===== print in the format =====
@@ -100,6 +131,8 @@ void command2(char** argv)
 		cout << "Running time: " << endl;
 		cout << "Comparisons: " << endl;
 	}
+
+	delete[] a;
 }
 
 void command3(char** argv)
@@ -338,46 +371,68 @@ void ShakerSort(int a[], int n, double &count)
 	}
 }
 
-void Heapify(int arr[], int n, int i, double &count)
+//void Heapify(int arr[], int n, int i, double &count)
+//{
+//	int largest = i;
+//
+//	// left = 2*i + 1
+//	int l = 2 * i + 1;
+//
+//	// right = 2*i + 2
+//	int r = 2 * i + 2;
+//
+//	count++;
+//	if (l < n && arr[l] > arr[largest])
+//		largest = l;
+//
+//	count++;
+//	if (r < n && arr[r] > arr[largest])
+//		largest = r;
+//
+//	count++;
+//	if (largest != i) 
+//	{
+//		swap(arr[i], arr[largest]);
+//		heapify(arr, n, largest, count);
+//	}
+//}
+
+//void HeapSort(int arr[], int n, double &count)
+//{
+//	// Build heap
+//	for (int i = n / 2 - 1; i >= 0; i--)
+//	{
+//		count++;
+//		heapify(arr, n, i, count);
+//	}
+//
+//	// One by one extract an element
+//	for (int i = n - 1; i > 0; i--) 
+//	{
+//		count++;
+//		swap(arr[0], arr[i]);
+//		heapify(arr, i, 0, count);
+//	}
+//}
+
+void BubbleSort(int* a, int n)
 {
-	int largest = i;
-
-	// left = 2*i + 1
-	int l = 2 * i + 1;
-
-	// right = 2*i + 2
-	int r = 2 * i + 2;
-
-	count++;
-	if (l < n && arr[l] > arr[largest])
-		largest = l;
-
-	count++;
-	if (r < n && arr[r] > arr[largest])
-		largest = r;
-
-	count++;
-	if (largest != i) 
-	{
-		swap(arr[i], arr[largest]);
-		heapify(arr, n, largest, count);
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - 1 - i; j++) {
+			if (a[j + 1] < a[j])
+				swap(a[j + 1], a[j]);
+		}
 	}
 }
 
-void HeapSort(int arr[], int n, double &count)
+void SelectionSort(int* a, int n)
 {
-	// Build heap
-	for (int i = n / 2 - 1; i >= 0; i--)
-	{
-		count++;
-		heapify(arr, n, i, count);
-	}
-
-	// One by one extract an element
-	for (int i = n - 1; i > 0; i--) 
-	{
-		count++;
-		swap(arr[0], arr[i]);
-		heapify(arr, i, 0, count);
+	for (int i = 0; i < n - 1; i++) {
+		int minPos = i;
+		for (int j = i + 1; j < n; j++) {
+			if (a[j] < a[minPos])
+				minPos = j;
+		}
+		swap(a[i], a[minPos]);
 	}
 }
