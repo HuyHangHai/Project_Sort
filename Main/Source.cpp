@@ -252,6 +252,20 @@ void command5(char** argv)
 	delete []a;
 }
 
+void WriteFile(string file_name, int a[], int n)
+{
+	fstream fp;
+	fp.open(file_name, ios::out);
+	fp << n;
+	fp << '\n';
+	for (int i = 0; i < n; i++)
+	{
+		fp << a[i];
+		fp << ' ';
+	}
+	fp.close();
+}
+
 
 //================SORTING====================
 
