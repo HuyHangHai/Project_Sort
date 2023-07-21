@@ -323,3 +323,47 @@ void ShakerSort(int a[], int n, double &count)
 		left = k;
 	}
 }
+
+void Heapify(int arr[], int n, int i, double &count)
+{
+	int largest = i;
+
+	// left = 2*i + 1
+	int l = 2 * i + 1;
+
+	// right = 2*i + 2
+	int r = 2 * i + 2;
+
+	count++;
+	if (l < n && arr[l] > arr[largest])
+		largest = l;
+
+	count++;
+	if (r < n && arr[r] > arr[largest])
+		largest = r;
+
+	count++;
+	if (largest != i) 
+	{
+		swap(arr[i], arr[largest]);
+		heapify(arr, n, largest, count);
+	}
+}
+
+void HeapSort(int arr[], int n, double &count)
+{
+	// Build heap
+	for (int i = n / 2 - 1; i >= 0; i--)
+	{
+		count++;
+		heapify(arr, n, i, count);
+	}
+
+	// One by one extract an element
+	for (int i = n - 1; i > 0; i--) 
+	{
+		count++;
+		swap(arr[0], arr[i]);
+		heapify(arr, i, 0, count);
+	}
+}
