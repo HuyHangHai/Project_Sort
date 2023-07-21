@@ -403,7 +403,7 @@ void ShakerSort(int a[], int n, double &count)
 //	for (int i = n / 2 - 1; i >= 0; i--)
 //	{
 //		count++;
-//		heapify(arr, n, i, count);
+//		Heapify(arr, n, i, count);
 //	}
 //
 //	// One by one extract an element
@@ -411,7 +411,7 @@ void ShakerSort(int a[], int n, double &count)
 //	{
 //		count++;
 //		swap(arr[0], arr[i]);
-//		heapify(arr, i, 0, count);
+//		Heapify(arr, i, 0, count);
 //	}
 //}
 
