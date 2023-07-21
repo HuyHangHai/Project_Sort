@@ -44,3 +44,6 @@ void command5(char** argv);
 
 void InsertionSort(int* a, int n);
 void ShellSort(int* a, int n);
+void ShakerSort(int a[], int n, double &count);
+void Heapify(int arr[], int n, int i, double &count);
+void HeapSort(int arr[], int n, double &count);
