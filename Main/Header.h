@@ -50,3 +50,9 @@ void Heapify(int arr[], int n, int i, double &count);
 void HeapSort(int arr[], int n, double &count);
 void BubbleSort(int* a, int n);
 void SelectionSort(int* a, int n);
+// -----Radix Sort-----
+int get_max_value(int* a, int n);
+void CountingSort2(int* a, int n, int exp);
+void RadixSort(int* a, int n);
+
+

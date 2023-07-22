@@ -436,3 +436,51 @@ void SelectionSort(int* a, int n)
 		swap(a[i], a[minPos]);
 	}
 }
+
+// ----- Radix Sort -----
+int get_max_value(int* a, int n)
+{
+	int maxValue = a[0];
+
+	for (int i = 1; i < n; i++) {
+		if (a[i] > maxValue)
+			maxValue = a[i];
+	}
+	return maxValue;
+}
+
+void CountingSort2(int* a, int n, int exp)
+{
+
+	int count[10] = { 0 };
+
+	for (int i = 0; i < n; i++)
+		count[(a[i] / exp) % 10]++;
+
+	for (int i = 1; i < 10; i++)
+		count[i] = count[i - 1] + count[i];
+
+
+	int* temp = new int[n];
+
+	for (int i = n - 1; i >= 0; i--) {
+		temp[count[(a[i] / exp) % 10] - 1] = a[i];
+		count[(a[i] / exp) % 10]--;
+	}
+
+
+	// update for array a after sorting by current unit
+	for (int i = 0; i < n; i++)
+		a[i] = temp[i];
+
+	delete[] temp;
+}
+
+
+void RadixSort(int* a, int n)
+{
+	int maxValue = get_max_value(a, n);
+
+	for (int i = 1; (maxValue / i) > 0; i *= 10)
+		CountingSort2(a, n, i);
+}
