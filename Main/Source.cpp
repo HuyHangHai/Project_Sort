@@ -143,18 +143,21 @@ void command3(char** argv)
 	int inputSize = stoi(argv[3]);
 	string requireOutput = argv[4];
 
-	int* a = new int[inputSize];
-	GenerateData(a, inputSize, 0);
-	WriteFile("input1.txt", a, inputSize);
-	GenerateData(a, inputSize, 1);
-	WriteFile("input2.txt", a, inputSize);
-	GenerateData(a, inputSize, 2);
-	WriteFile("input3.txt", a, inputSize);
-	GenerateData(a, inputSize, 3);
-	WriteFile("input4.txt", a, inputSize);
-	
-	//Sort
+	double comp0 = 0, comp1 = 0, comp2 = 0, comp3 = 0, time0, time1, time2, time3;
 
+	int* arr = new int[inputSize];
+	GenerateData(arr, inputSize, 0);
+	WriteFile("input1.txt", arr, inputSize);
+	CalAlg(alg, arr, inputSize, comp0, time0);
+	GenerateData(arr, inputSize, 1);
+	WriteFile("input2.txt", arr, inputSize);
+	CalAlg(alg, arr, inputSize, comp1, time1);
+	GenerateData(arr, inputSize, 2);
+	WriteFile("input3.txt", arr, inputSize);
+	CalAlg(alg, arr, inputSize, comp2, time2);
+	GenerateData(arr, inputSize, 3);
+	WriteFile("input4.txt", arr, inputSize);
+	CalAlg(alg, arr, inputSize, comp3, time3);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -163,55 +166,55 @@ void command3(char** argv)
 	cout << "Input order: " << "Randomize" << endl;
 	cout << "-------------------\n";
 	if (requireOutput == "-time") {
-		cout << "Running time: " << endl << endl;
+		cout << "Running time: " << time0 << endl << endl;
 
 		cout << "Input order: " << "Nearly Sorted" << endl;
 		cout << "-------------------\n";
-		cout << "Running time: " << endl << endl;
+		cout << "Running time: " << time3 << endl << endl;
 
 		cout << "Input order: " << "Sorted" << endl;
 		cout << "-------------------\n";
-		cout << "Running time: " << endl << endl;
+		cout << "Running time: " << time1 << endl << endl;
 
 		cout << "Input order: " << "Reserved" << endl;
 		cout << "-------------------\n";
-		cout << "Running time: " << endl << endl;
+		cout << "Running time: " << time2 << endl << endl;
 	}
 	else if (requireOutput == "-comp") {
-		cout << "Comparisons: " << endl << endl;
+		cout << "Comparisons: " << comp0 << endl << endl;
 
 		cout << "Input order: " << "Nearly Sorted" << endl;
 		cout << "-------------------\n";
-		cout << "Comparisons: " << endl << endl;
+		cout << "Comparisons: " << comp3 << endl << endl;
 		
 		cout << "Input order: " << "Sorted" << endl;
 		cout << "-------------------\n";
-		cout << "Comparisons: " << endl << endl;
+		cout << "Comparisons: " << comp1 << endl << endl;
 		
 		cout << "Input order: " << "Reserved" << endl;
 		cout << "-------------------\n";
-		cout << "Comparisons: " << endl << endl;
+		cout << "Comparisons: " << comp2 << endl << endl;
 	}
 	else if (requireOutput == "-both") {
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl << endl;
+		cout << "Running time: " << time0 << endl;
+		cout << "Comparisons: " << comp0 << endl << endl;
 
 		cout << "Input order: " << "Nearly Sorted" << endl;
 		cout << "-------------------\n";
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl << endl;
+		cout << "Running time: " << time3 << endl;
+		cout << "Comparisons: " << comp3 << endl << endl;
 
 		cout << "Input order: " << "Sorted" << endl;
 		cout << "-------------------\n";
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl << endl;
+		cout << "Running time: " << time1 << endl;
+		cout << "Comparisons: " << comp1 << endl << endl;
 
 		cout << "Input order: " << "Reserved" << endl;
 		cout << "-------------------\n";
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl << endl;
+		cout << "Running time: " << time2 << endl;
+		cout << "Comparisons: " << comp2 << endl << endl;
 	}
-	delete[]a;
+	delete[]arr;
 }
 
 void command4(char** argv)
@@ -226,9 +229,17 @@ void command4(char** argv)
 	fstream fp;
 	fp.open(fileName, ios::in);
 	fp >> inputSize;
+	int* arr = new int[inputSize];
+	for (int i = 0; i < inputSize; i++)
+	{
+		fp >> arr[i];
+	}
 	fp.close();
 
 	//Sort
+	double time1, time2, comp1 = 0, comp2 = 0;
+	CalAlg(alg1, arr, inputSize, comp1, time1);
+	CalAlg(alg2, arr, inputSize, comp2, time2);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -236,8 +247,9 @@ void command4(char** argv)
 	cout << "Input file: " << fileName << endl;
 	cout << "Input size: " << inputSize << endl;
 	cout << "-------------------\n";
-	cout << "Running time: " << endl;
-	cout << "Comparisons: " << endl << endl;
+	cout << "Running time: " << time1 << " | " << time2 << endl;
+	cout << "Comparisons: " << comp1 << " | " << comp2 << endl;
+	delete[]arr;
 }
 
 void command5(char** argv)
@@ -247,32 +259,34 @@ void command5(char** argv)
 	string alg2 = handle_algorithm_name(argv[3]);
 	int inputSize = stoi(argv[4]);
 	string inputOrder = handle_input_order(argv[5]);
-	int* a = new int[inputSize];
+	int* arr = new int[inputSize];
 	string fileName = "input.txt";
 
 	if (inputOrder == "Randomize")
 	{
-		GenerateData(a, inputSize, 0);
-		WriteFile(fileName, a, inputSize);
+		GenerateData(arr, inputSize, 0);
+		WriteFile(fileName, arr, inputSize);
 	}
 	else if (inputOrder == "Sorted")
 	{
-		GenerateData(a, inputSize, 1);
-		WriteFile(fileName, a, inputSize);
+		GenerateData(arr, inputSize, 1);
+		WriteFile(fileName, arr, inputSize);
 	}
 	else if (inputOrder == "Reverse")
 	{
-		GenerateData(a, inputSize, 2);
-		WriteFile(fileName, a, inputSize);
+		GenerateData(arr, inputSize, 2);
+		WriteFile(fileName, arr, inputSize);
 	}
 	else
 	{
-		GenerateData(a, inputSize, 3);
-		WriteFile(fileName, a, inputSize);
+		GenerateData(arr, inputSize, 3);
+		WriteFile(fileName, arr, inputSize);
 	}
 
 	//Sort
-	
+	double time1, time2, comp1 = 0, comp2 = 0;
+	CalAlg(alg1, arr, inputSize, comp1, time1);
+	CalAlg(alg2, arr, inputSize, comp2, time2);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -280,9 +294,9 @@ void command5(char** argv)
 	cout << "Input size: " << inputSize << endl;
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
-	cout << "Running time: " << endl;
-	cout << "Comparisons: " << " | " << endl << endl;
-	delete []a;
+	cout << "Running time: " << time1 << " | " << time2 << endl;
+	cout << "Comparisons: " << comp1 << " | " << comp2 << endl;
+	delete []arr;
 }
 
 void WriteFile(string file_name, int a[], int n)
@@ -298,6 +312,76 @@ void WriteFile(string file_name, int a[], int n)
 	}
 	fp.close();
 }
+
+void CalAlg(string alg, int arr[], int n, double& comp, double& time)
+{
+	if (alg == "Selection Sort")
+	{
+		//Selection Sort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Bubble Sort")
+	{
+		//BubbleSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Insertion Sort")
+	{
+		//InsertionSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Heap Sort")
+	{
+		HeapSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Merge Sort")
+	{
+		//MergeSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Quick Sort")
+	{
+		//QuickSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Shaker Sort")
+	{
+		ShakerSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Shell Sort")
+	{
+		//ShellSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Counting Sort")
+	{
+		//CountingSort(arr, n, comp);
+		return;
+	}
+
+	else if (alg == "Radix Sort")
+	{
+		//RadixSort(arr, n, comp);
+		return;
+	}
+
+	else
+	{
+		//FlashSort(arr, n, comp);
+		return;
+	}
+}
+
 
 
 //================SORTING====================
