@@ -415,22 +415,22 @@ void HeapSort(int arr[], int n, double &count)
 	}
 }
 
-void BubbleSort(int* a, int n)
+void BubbleSort(int* a, int n, int& countCompare)
 {
-	for (int i = 0; i < n - 1; i++) {
-		for (int j = 0; j < n - 1 - i; j++) {
-			if (a[j + 1] < a[j])
+	for (int i = 0; ++countCompare && i < n - 1; i++) {
+		for (int j = 0; ++countCompare && j < n - 1 - i; j++) {
+			if (++countCompare && a[j + 1] < a[j])
 				swap(a[j + 1], a[j]);
 		}
 	}
 }
 
-void SelectionSort(int* a, int n)
+void SelectionSort(int* a, int n, int& countCompare)
 {
-	for (int i = 0; i < n - 1; i++) {
+	for (int i = 0; ++countCompare && i < n - 1; i++) {
 		int minPos = i;
-		for (int j = i + 1; j < n; j++) {
-			if (a[j] < a[minPos])
+		for (int j = i + 1; ++countCompare && j < n; j++) {
+			if (++countCompare && a[j] < a[minPos])
 				minPos = j;
 		}
 		swap(a[i], a[minPos]);
@@ -438,49 +438,49 @@ void SelectionSort(int* a, int n)
 }
 
 // ----- Radix Sort -----
-int get_max_value(int* a, int n)
+int get_max_value(int* a, int n, int& countCompare)
 {
 	int maxValue = a[0];
 
-	for (int i = 1; i < n; i++) {
-		if (a[i] > maxValue)
+	for (int i = 1; ++countCompare && i < n; i++) {
+		if (++countCompare && a[i] > maxValue)
 			maxValue = a[i];
 	}
 	return maxValue;
 }
 
-void CountingSort2(int* a, int n, int exp)
+void CountingSort2(int* a, int n, int exp, int& countCompare)
 {
 
 	int count[10] = { 0 };
 
-	for (int i = 0; i < n; i++)
+	for (int i = 0; ++countCompare && i < n; i++)
 		count[(a[i] / exp) % 10]++;
 
-	for (int i = 1; i < 10; i++)
+	for (int i = 1; ++countCompare && i < 10; i++)
 		count[i] = count[i - 1] + count[i];
 
 
 	int* temp = new int[n];
 
-	for (int i = n - 1; i >= 0; i--) {
+	for (int i = n - 1; ++countCompare && i >= 0; i--) {
 		temp[count[(a[i] / exp) % 10] - 1] = a[i];
 		count[(a[i] / exp) % 10]--;
 	}
 
 
 	// update for array a after sorting by current unit
-	for (int i = 0; i < n; i++)
+	for (int i = 0; ++countCompare && i < n; i++)
 		a[i] = temp[i];
 
 	delete[] temp;
 }
 
 
-void RadixSort(int* a, int n)
+void RadixSort(int* a, int n, int& countCompare)
 {
-	int maxValue = get_max_value(a, n);
+	int maxValue = get_max_value(a, n, countCompare);
 
-	for (int i = 1; (maxValue / i) > 0; i *= 10)
-		CountingSort2(a, n, i);
+	for (int i = 1; ++countCompare && (maxValue / i) > 0; i *= 10)
+		CountingSort2(a, n, i, countCompare);
 }

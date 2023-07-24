@@ -48,11 +48,11 @@ void ShellSort(int* a, int n);
 void ShakerSort(int a[], int n, double &count);
 void Heapify(int arr[], int n, int i, double &count);
 void HeapSort(int arr[], int n, double &count);
-void BubbleSort(int* a, int n);
-void SelectionSort(int* a, int n);
+void BubbleSort(int* a, int n, int& countCompare);
+void SelectionSort(int* a, int n, int& countCompare);
 // -----Radix Sort-----
-int get_max_value(int* a, int n);
-void CountingSort2(int* a, int n, int exp);
-void RadixSort(int* a, int n);
+int get_max_value(int* a, int n, int& countCompare);
+void CountingSort2(int* a, int n, int exp, int& countCompare);
+void RadixSort(int* a, int n, int& countCompare);
 
 
