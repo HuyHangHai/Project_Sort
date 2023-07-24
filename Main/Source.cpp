@@ -143,7 +143,8 @@ void command3(char** argv)
 	int inputSize = stoi(argv[3]);
 	string requireOutput = argv[4];
 
-	double comp0 = 0, comp1 = 0, comp2 = 0, comp3 = 0, time0, time1, time2, time3;
+	int comp0 = 0, comp1 = 0, comp2 = 0, comp3 = 0;
+	double time0, time1, time2, time3;
 
 	int* arr = new int[inputSize];
 	GenerateData(arr, inputSize, 0);
@@ -237,7 +238,8 @@ void command4(char** argv)
 	fp.close();
 
 	//Sort
-	double time1, time2, comp1 = 0, comp2 = 0;
+	double time1, time2;
+	int comp1 = 0, comp2 = 0;
 	CalAlg(alg1, arr, inputSize, comp1, time1);
 	CalAlg(alg2, arr, inputSize, comp2, time2);
 
@@ -284,7 +286,8 @@ void command5(char** argv)
 	}
 
 	//Sort
-	double time1, time2, comp1 = 0, comp2 = 0;
+	double time1, time2;
+	int comp1 = 0, comp2 = 0;
 	CalAlg(alg1, arr, inputSize, comp1, time1);
 	CalAlg(alg2, arr, inputSize, comp2, time2);
 
@@ -313,7 +316,7 @@ void WriteFile(string file_name, int a[], int n)
 	fp.close();
 }
 
-void CalAlg(string alg, int arr[], int n, double& comp, double& time)
+void CalAlg(string alg, int arr[], int n, int& comp, double& time)
 {
 	if (alg == "Selection Sort")
 	{
@@ -419,43 +422,38 @@ void ShellSort(int* a, int n)							//Khoi edited
 	}
 }
 
-void ShakerSort(int a[], int n, double &count) 
+void ShakerSort(int a[], int n, int &count) 
 {
 	int left, right, k, i;
 	left = 0;
 	right = n - 1;
 	k = 0;
 	count = 0;
-	while (left < right) 
+	while (++count && left < right) 
 	{
-		count++;
-		for (i = left; i < right; i++)
+		for (i = left; ++count && i < right; i++)
 		{
-			count++;
-			if (a[i] > a[i + 1])
+			if (++count && a[i] > a[i + 1])
 			{
 				swap(a[i], a[i + 1]);
 				k = i;
 			}
-			count++;
 		}
 		right = k;
 
-		for (i = right; i > left; i--)
+		for (i = right; ++count && i > left; i--)
 		{
-			count++;
-			if (a[i] < a[i - 1]) 
+			if (++count && a[i] < a[i - 1]) 
 			{
 				swap(a[i], a[i - 1]);
 				k = i;
 			}
-			count++;
 		}
 		left = k;
 	}
 }
 
-void Heapify(int arr[], int n, int i, double &count)
+void Heapify(int arr[], int n, int i, int &count)
 {
 	int largest = i;
 
@@ -464,36 +462,31 @@ void Heapify(int arr[], int n, int i, double &count)
 
 	// right = 2*i + 2
 	int r = 2 * i + 2;
-
-	count++;
-	if (l < n && arr[l] > arr[largest])
+	
+	if (++count && ++count && l < n && arr[l] > arr[largest])
 		largest = l;
 
-	count++;
-	if (r < n && arr[r] > arr[largest])
+	if (++count && ++count && r < n && arr[r] > arr[largest])
 		largest = r;
 
-	count++;
-	if (largest != i) 
+	if (++count && largest != i) 
 	{
 		swap(arr[i], arr[largest]);
 		Heapify(arr, n, largest, count);
 	}
 }
 
-void HeapSort(int arr[], int n, double &count)
+void HeapSort(int arr[], int n, int &count)
 {
 	// Build heap
-	for (int i = n / 2 - 1; i >= 0; i--)
+	for (int i = n / 2 - 1; ++count && i >= 0; i--)
 	{
-		count++;
 		Heapify(arr, n, i, count);
 	}
 
 	// One by one extract an element
-	for (int i = n - 1; i > 0; i--) 
+	for (int i = n - 1; ++count && i > 0; i--) 
 	{
-		count++;
 		swap(arr[0], arr[i]);
 		Heapify(arr, i, 0, count);
 	}
