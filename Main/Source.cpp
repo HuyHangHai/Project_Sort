@@ -463,10 +463,10 @@ void Heapify(int arr[], int n, int i, int &count)
 	// right = 2*i + 2
 	int r = 2 * i + 2;
 	
-	if (++count && ++count && l < n && arr[l] > arr[largest])
+	if ((++count && l < n) && (++count && arr[l] > arr[largest]))
 		largest = l;
 
-	if (++count && ++count && r < n && arr[r] > arr[largest])
+	if ((++count && r < n) && (++count && arr[r] > arr[largest]))
 		largest = r;
 
 	if (++count && largest != i) 
