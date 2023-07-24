@@ -29,7 +29,7 @@ void GenerateData(int a[], int n, int dataType);
 string handle_algorithm_name(string require);
 string handle_input_order(string s);
 void WriteFile(string file_name, int a[], int n);
-void CalAlg(string alg, int arr[], int n, int& comp, double& time);
+void CalAlg(string alg, int arr[], int n, long long& comp, double& time);
 
 
 // ===== Command line =====
@@ -46,14 +46,14 @@ void command5(char** argv);
 
 void InsertionSort(int* a, int n);
 void ShellSort(int* a, int n);
-void ShakerSort(int a[], int n, int &count);
-void Heapify(int arr[], int n, int i, int &count);
-void HeapSort(int arr[], int n, int &count);
-void BubbleSort(int* a, int n, int& countCompare);
-void SelectionSort(int* a, int n, int& countCompare);
+void ShakerSort(int a[], int n, long long &count);
+void Heapify(int arr[], int n, int i, long long &count);
+void HeapSort(int arr[], int n, long long &count);
+void BubbleSort(int* a, int n, long long& countCompare);
+void SelectionSort(int* a, int n, long long& countCompare);
 // -----Radix Sort-----
-int get_max_value(int* a, int n, int& countCompare);
-void CountingSort2(int* a, int n, int exp, int& countCompare);
-void RadixSort(int* a, int n, int& countCompare);
+int get_max_value(int* a, int n, long long& countCompare);
+void CountingSort2(int* a, int n, int exp, long long& countCompare);
+void RadixSort(int* a, int n, long long& countCompare);
 
 

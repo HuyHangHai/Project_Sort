@@ -143,7 +143,7 @@ void command3(char** argv)
 	int inputSize = stoi(argv[3]);
 	string requireOutput = argv[4];
 
-	int comp0 = 0, comp1 = 0, comp2 = 0, comp3 = 0;
+	long long comp0 = 0, comp1 = 0, comp2 = 0, comp3 = 0;
 	double time0, time1, time2, time3;
 
 	int* arr = new int[inputSize];
@@ -239,7 +239,7 @@ void command4(char** argv)
 
 	//Sort
 	double time1, time2;
-	int comp1 = 0, comp2 = 0;
+	long long comp1 = 0, comp2 = 0;
 	CalAlg(alg1, arr, inputSize, comp1, time1);
 	CalAlg(alg2, arr, inputSize, comp2, time2);
 
@@ -287,7 +287,7 @@ void command5(char** argv)
 
 	//Sort
 	double time1, time2;
-	int comp1 = 0, comp2 = 0;
+	long long comp1 = 0, comp2 = 0;
 	CalAlg(alg1, arr, inputSize, comp1, time1);
 	CalAlg(alg2, arr, inputSize, comp2, time2);
 
@@ -316,17 +316,17 @@ void WriteFile(string file_name, int a[], int n)
 	fp.close();
 }
 
-void CalAlg(string alg, int arr[], int n, int& comp, double& time)
+void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 {
 	if (alg == "Selection Sort")
 	{
-		//Selection Sort(arr, n, comp);
+		SelectionSort(arr, n, comp);
 		return;
 	}
 
 	else if (alg == "Bubble Sort")
 	{
-		//BubbleSort(arr, n, comp);
+		BubbleSort(arr, n, comp);
 		return;
 	}
 
@@ -374,7 +374,7 @@ void CalAlg(string alg, int arr[], int n, int& comp, double& time)
 
 	else if (alg == "Radix Sort")
 	{
-		//RadixSort(arr, n, comp);
+		RadixSort(arr, n, comp);
 		return;
 	}
 
@@ -422,7 +422,7 @@ void ShellSort(int* a, int n)							//Khoi edited
 	}
 }
 
-void ShakerSort(int a[], int n, int &count) 
+void ShakerSort(int a[], int n, long long &count) 
 {
 	int left, right, k, i;
 	left = 0;
@@ -453,7 +453,7 @@ void ShakerSort(int a[], int n, int &count)
 	}
 }
 
-void Heapify(int arr[], int n, int i, int &count)
+void Heapify(int arr[], int n, int i, long long &count)
 {
 	int largest = i;
 
@@ -476,7 +476,7 @@ void Heapify(int arr[], int n, int i, int &count)
 	}
 }
 
-void HeapSort(int arr[], int n, int &count)
+void HeapSort(int arr[], int n, long long &count)
 {
 	// Build heap
 	for (int i = n / 2 - 1; ++count && i >= 0; i--)
@@ -492,7 +492,7 @@ void HeapSort(int arr[], int n, int &count)
 	}
 }
 
-void BubbleSort(int* a, int n, int& countCompare)
+void BubbleSort(int* a, int n, long long& countCompare)
 {
 	for (int i = 0; ++countCompare && i < n - 1; i++) {
 		for (int j = 0; ++countCompare && j < n - 1 - i; j++) {
@@ -502,7 +502,7 @@ void BubbleSort(int* a, int n, int& countCompare)
 	}
 }
 
-void SelectionSort(int* a, int n, int& countCompare)
+void SelectionSort(int* a, int n, long long& countCompare)
 {
 	for (int i = 0; ++countCompare && i < n - 1; i++) {
 		int minPos = i;
@@ -515,7 +515,7 @@ void SelectionSort(int* a, int n, int& countCompare)
 }
 
 // ----- Radix Sort -----
-int get_max_value(int* a, int n, int& countCompare)
+int get_max_value(int* a, int n, long long& countCompare)
 {
 	int maxValue = a[0];
 
@@ -526,7 +526,7 @@ int get_max_value(int* a, int n, int& countCompare)
 	return maxValue;
 }
 
-void CountingSort2(int* a, int n, int exp, int& countCompare)
+void CountingSort2(int* a, int n, int exp, long long& countCompare)
 {
 
 	int count[10] = { 0 };
@@ -554,7 +554,7 @@ void CountingSort2(int* a, int n, int exp, int& countCompare)
 }
 
 
-void RadixSort(int* a, int n, int& countCompare)
+void RadixSort(int* a, int n, long long& countCompare)
 {
 	int maxValue = get_max_value(a, n, countCompare);
 
