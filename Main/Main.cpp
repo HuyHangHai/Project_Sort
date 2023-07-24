@@ -2,11 +2,11 @@
 
 int main(int argc, char** argv)
 {
-	/*if (argc < 2)	return 0;*/
+	if (argc < 2)	return 0;
 
 	 //Hello
 
-	/*int require = check_command(argc, argv);
+	int require = check_command(argc, argv);
 	switch (require)
 	{
 		case 1:
@@ -36,14 +36,5 @@ int main(int argc, char** argv)
 		}
 	default:
 		break;
-	}*/
-
-	long long count = 0;
-	int n = 10000;
-	int* arr = new int[n];
-	GenerateData(arr, n, 3);
-	HeapSort(arr, n, count);
-	cout << count;
-	delete[]arr;
-	return 0;
+	}
 }
