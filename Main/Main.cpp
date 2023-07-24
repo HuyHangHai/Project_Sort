@@ -2,9 +2,9 @@
 
 int main(int argc, char** argv)
 {
-	if (argc < 2)	return 0;
+	/*if (argc < 2)	return 0;
 
-	// Hello
+	 Hello
 
 	int require = check_command(argc, argv);
 	switch (require)
@@ -36,7 +36,12 @@ int main(int argc, char** argv)
 		}
 	default:
 		break;
-	}
+	}*/
+	int n = 10000, count = 0;
+	int* arr = new int[n];
+	GenerateData(arr, n, 0);
+	ShakerSort(arr, n, count);
+	cout << count;
 
 	return 0;
 }
