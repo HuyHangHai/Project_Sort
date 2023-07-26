@@ -667,6 +667,16 @@ void BubbleSort1(int arr[], int n)
 	}
 }
 
+void BubbleSort1(int* a, int n)
+{
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - 1 - i; j++) {
+			if (a[j + 1] < a[j])
+				swap(a[j + 1], a[j]);
+		}
+	}
+}
+
 void SelectionSort(int* a, int n, long long& countCompare)
 {
 	for (int i = 0; ++countCompare && i < n - 1; i++) {
@@ -781,5 +791,5 @@ void RadixSort1(int* a, int n)
 	int maxValue = get_max_value1(a, n);
 
 	for (int i = 1; (maxValue / i) > 0; i *= 10)
-		CountingSort21(a, n, i);
+		CountingSort2_1(a, n, i);
 }
