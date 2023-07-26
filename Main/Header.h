@@ -5,6 +5,7 @@
 #include <time.h>
 #include <iomanip>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -47,8 +48,11 @@ void command5(char** argv);
 void InsertionSort(int* a, int n);
 void ShellSort(int* a, int n);
 void ShakerSort(int a[], int n, long long &count);
+void ShakerSort1(int a[], int n);
 void Heapify(int arr[], int n, int i, long long &count);
 void HeapSort(int arr[], int n, long long &count);
+void Heapify1(int arr[], int n, int i);
+void HeapSort1(int arr[], int n);
 void BubbleSort(int* a, int n, long long& countCompare);
 void SelectionSort(int* a, int n, long long& countCompare);
 // -----Radix Sort-----

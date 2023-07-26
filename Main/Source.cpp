@@ -318,21 +318,31 @@ void WriteFile(string file_name, int a[], int n)
 
 void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 {
+	clock_t start, end;
 	if (alg == "Selection Sort")
 	{
+		start = clock();
 		SelectionSort(arr, n, comp);
+		end = clock();
+		time = (end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Bubble Sort")
 	{
+		start = clock();
 		BubbleSort(arr, n, comp);
+		end = clock();
+		time = (end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Insertion Sort")
 	{
+		start = clock();
 		//InsertionSort(arr, n, comp);
+		end = clock();
+		time = (end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
@@ -453,6 +463,36 @@ void ShakerSort(int a[], int n, long long &count)
 	}
 }
 
+void ShakerSort1(int a[], int n)
+{
+	int left, right, k, i;
+	left = 0;
+	right = n - 1;
+	k = 0;
+	while (left < right)
+	{
+		for (i = left; i < right; i++)
+		{
+			if (a[i] > a[i + 1])
+			{
+				swap(a[i], a[i + 1]);
+				k = i;
+			}
+		}
+		right = k;
+
+		for (i = right; i > left; i--)
+		{
+			if (a[i] < a[i - 1])
+			{
+				swap(a[i], a[i - 1]);
+				k = i;
+			}
+		}
+		left = k;
+	}
+}
+
 void Heapify(int arr[], int n, int i, long long &count)
 {
 	int largest = i;
@@ -489,6 +529,45 @@ void HeapSort(int arr[], int n, long long &count)
 	{
 		swap(arr[0], arr[i]);
 		Heapify(arr, i, 0, count);
+	}
+}
+
+void Heapify1(int arr[], int n, int i)
+{
+	int largest = i;
+
+	// left = 2*i + 1
+	int l = 2 * i + 1;
+
+	// right = 2*i + 2
+	int r = 2 * i + 2;
+
+	if (l < n && arr[l] > arr[largest])
+		largest = l;
+
+	if (r < n && arr[r] > arr[largest])
+		largest = r;
+
+	if (largest != i)
+	{
+		swap(arr[i], arr[largest]);
+		Heapify1(arr, n, largest);
+	}
+}
+
+void HeapSort1(int arr[], int n)
+{
+	// Build heap
+	for (int i = n / 2 - 1; i >= 0; i--)
+	{
+		Heapify1(arr, n, i);
+	}
+
+	// One by one extract an element
+	for (int i = n - 1; i > 0; i--)
+	{
+		swap(arr[0], arr[i]);
+		Heapify1(arr, i, 0);
 	}
 }
 
