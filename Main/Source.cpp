@@ -62,10 +62,13 @@ void command1(char** argv)
 		f >> a[i];
 	f.close();
 
+	int* a1 = new int[inputSize];
+	for (int i = 0; i < inputSize; i++)
+	{
+		a1[i] = a[i];
+	}
+
 	// calculate running time and comparisons
-	long long countCompare = 0;
-	double calculateTime = 0;
-	CalAlg(require, a, inputSize, countCompare, calculateTime);
 
 
 	// ===== print in the format =====
@@ -74,15 +77,15 @@ void command1(char** argv)
 	cout << "Input file: " << argv[3] << endl;
 	cout << "Input size: " << inputSize << endl;
 	cout << "-------------------\n";
-	if ((string)argv[4] == "-time") {
-		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+	if (argv[4] == "-time") {
+		cout << "Running time: " << endl;
 	}
-	else if ((string)argv[4] == "-comp") {
-		cout << "Comparisons: " << countCompare << endl;
+	else if (argv[4] == "-comp") {
+		cout << "Comparisons: " << endl;
 	}
-	else if ((string)argv[4] == "-both") {
-		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
-		cout << "Comparisons: " << countCompare << endl;
+	else if (argv[4] == "-both") {
+		cout << "Running time: " << endl;
+		cout << "Comparisons: " << endl;
 	}
 
 	// ====== record data to file =====
@@ -96,20 +99,25 @@ void command2(char** argv)
 	string require = handle_algorithm_name(argv[2]);
 	int inputSize = stoi(argv[3]);
 	int* a = new int[inputSize];
+	int* a1 = new int[inputSize];
 	string inputOrder = handle_input_order(argv[4]);
 
 	// handle input
 	if ((string)argv[4] == "-rand") {
 		GenerateRandomData(a, inputSize);
+		GenerateRandomData(a1, inputSize);
 	}
 	else if ((string)argv[4] == " -nsorted") {
 		GenerateNearlySortedData(a, inputSize);
+		GenerateNearlySortedData(a1, inputSize);
 	}
 	else if ((string)argv[4] == "-sorted") {
 		GenerateSortedData(a, inputSize);
+		GenerateSortedData(a1, inputSize);
 	}
 	else if ((string)argv[4] == "-rev") {
 		GenerateReverseData(a, inputSize);
+		GenerateReverseData(a1, inputSize);
 	}
 
 	// ====== record data to file =====
@@ -136,6 +144,7 @@ void command2(char** argv)
 	}
 
 	delete[] a;
+	delete[] a1;
 }
 
 void command3(char** argv)
@@ -150,18 +159,27 @@ void command3(char** argv)
 	double time0, time1, time2, time3;
 
 	int* arr = new int[inputSize];
+	int* arr1 = new int[inputSize];
+
 	GenerateData(arr, inputSize, 0);
+	GenerateData(arr1, inputSize, 0);
 	WriteFile("input1.txt", arr, inputSize);
-	CalAlg(alg, arr, inputSize, comp0, time0);
+	CalAlg(alg, arr, arr1, inputSize, comp0, time0);
+
 	GenerateData(arr, inputSize, 1);
+	GenerateData(arr1, inputSize, 1);
 	WriteFile("input2.txt", arr, inputSize);
-	CalAlg(alg, arr, inputSize, comp1, time1);
+	CalAlg(alg, arr, arr1, inputSize, comp1, time1);
+
 	GenerateData(arr, inputSize, 2);
+	GenerateData(arr1, inputSize, 2);
 	WriteFile("input3.txt", arr, inputSize);
-	CalAlg(alg, arr, inputSize, comp2, time2);
+	CalAlg(alg, arr, arr1, inputSize, comp2, time2);
+
 	GenerateData(arr, inputSize, 3);
+	GenerateData(arr1, inputSize, 3);
 	WriteFile("input4.txt", arr, inputSize);
-	CalAlg(alg, arr, inputSize, comp3, time3);
+	CalAlg(alg, arr, arr1, inputSize, comp3, time3);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -218,7 +236,8 @@ void command3(char** argv)
 		cout << "Running time: " << time2 << endl;
 		cout << "Comparisons: " << comp2 << endl << endl;
 	}
-	delete[]arr;
+	delete [] arr;
+	delete [] arr1;
 }
 
 void command4(char** argv)
@@ -240,11 +259,17 @@ void command4(char** argv)
 	}
 	fp.close();
 
+	int* arr1 = new int[inputSize];
+	for (int i = 0; i < inputSize; i++)
+	{
+		arr1[i] = arr[i];
+	}
+
 	//Sort
 	double time1, time2;
 	long long comp1 = 0, comp2 = 0;
-	CalAlg(alg1, arr, inputSize, comp1, time1);
-	CalAlg(alg2, arr, inputSize, comp2, time2);
+	CalAlg(alg1, arr, arr1, inputSize, comp1, time1);
+	CalAlg(alg2, arr, arr1, inputSize, comp2, time2);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -254,7 +279,8 @@ void command4(char** argv)
 	cout << "-------------------\n";
 	cout << "Running time: " << time1 << " | " << time2 << endl;
 	cout << "Comparisons: " << comp1 << " | " << comp2 << endl;
-	delete[]arr;
+	delete []arr;
+	delete []arr1;
 }
 
 void command5(char** argv)
@@ -265,34 +291,39 @@ void command5(char** argv)
 	int inputSize = stoi(argv[4]);
 	string inputOrder = handle_input_order(argv[5]);
 	int* arr = new int[inputSize];
+	int* arr1 = new int[inputSize];
 	string fileName = "input.txt";
 
 	if (inputOrder == "Randomize")
 	{
 		GenerateData(arr, inputSize, 0);
+		GenerateData(arr1, inputSize, 0);
 		WriteFile(fileName, arr, inputSize);
 	}
 	else if (inputOrder == "Sorted")
 	{
 		GenerateData(arr, inputSize, 1);
+		GenerateData(arr1, inputSize, 1);
 		WriteFile(fileName, arr, inputSize);
 	}
 	else if (inputOrder == "Reverse")
 	{
 		GenerateData(arr, inputSize, 2);
+		GenerateData(arr1, inputSize, 2);
 		WriteFile(fileName, arr, inputSize);
 	}
 	else
 	{
 		GenerateData(arr, inputSize, 3);
+		GenerateData(arr1, inputSize, 3);
 		WriteFile(fileName, arr, inputSize);
 	}
 
 	//Sort
 	double time1, time2;
 	long long comp1 = 0, comp2 = 0;
-	CalAlg(alg1, arr, inputSize, comp1, time1);
-	CalAlg(alg2, arr, inputSize, comp2, time2);
+	CalAlg(alg1, arr, arr1, inputSize, comp1, time1);
+	CalAlg(alg2, arr, arr1, inputSize, comp2, time2);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -303,6 +334,7 @@ void command5(char** argv)
 	cout << "Running time: " << time1 << " | " << time2 << endl;
 	cout << "Comparisons: " << comp1 << " | " << comp2 << endl;
 	delete []arr;
+	delete []arr1;
 }
 
 void WriteFile(string file_name, int a[], int n)
@@ -319,13 +351,14 @@ void WriteFile(string file_name, int a[], int n)
 	fp.close();
 }
 
-void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
+void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& time)
 {
 	clock_t start, end;
 	if (alg == "Selection Sort")
 	{
-		start = clock();
 		SelectionSort(arr, n, comp);
+		start = clock();
+		//SelectionSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -333,8 +366,9 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 
 	else if (alg == "Bubble Sort")
 	{
-		start = clock();
 		BubbleSort(arr, n, comp);
+		start = clock();
+		//BubbleSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -342,17 +376,19 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 
 	else if (alg == "Insertion Sort")
 	{
-		start = clock();
 		//InsertionSort(arr, n, comp);
+		start = clock();
+		//InsertionSort1(arr1, n);
 		end = clock();
-		time = (end - start) / CLOCKS_PER_SEC;
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Heap Sort")
 	{
-		start = clock();
 		HeapSort(arr, n, comp);
+		start = clock();
+		HeapSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -361,39 +397,59 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 	else if (alg == "Merge Sort")
 	{
 		//MergeSort(arr, n, comp);
+		start = clock();
+		//MergeSort1(arr1, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Quick Sort")
 	{
 		//QuickSort(arr, n, comp);
+		start = clock();
+		//QuickSort1(arr1, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Shaker Sort")
 	{
 		ShakerSort(arr, n, comp);
+		start = clock();
+		ShakerSort1(arr1, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Shell Sort")
 	{
 		//ShellSort(arr, n, comp);
+		start = clock();
+		//ShellSort1(arr1, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Counting Sort")
 	{
 		//CountingSort(arr, n, comp);
+		start = clock();
+		//CountingSort1(arr1, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Radix Sort")
 	{
-		start = clock();
 		RadixSort(arr, n, comp);
+		start = clock();
+		//RadixSort1(arr1, n);
 		end = clock();
-
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
@@ -401,9 +457,14 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 	else
 	{
 		//FlashSort(arr, n, comp);
+		start = clock();
+		//FlashSort1(arr1, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 }
+
 
 
 
