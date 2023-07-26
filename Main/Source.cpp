@@ -63,6 +63,9 @@ void command1(char** argv)
 	f.close();
 
 	// calculate running time and comparisons
+	long long countCompare = 0;
+	double calculateTime = 0;
+	CalAlg(require, a, inputSize, countCompare, calculateTime);
 
 
 	// ===== print in the format =====
@@ -71,15 +74,15 @@ void command1(char** argv)
 	cout << "Input file: " << argv[3] << endl;
 	cout << "Input size: " << inputSize << endl;
 	cout << "-------------------\n";
-	if (argv[4] == "-time") {
-		cout << "Running time: " << endl;
+	if ((string)argv[4] == "-time") {
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 	}
-	else if (argv[4] == "-comp") {
-		cout << "Comparisons: " << endl;
+	else if ((string)argv[4] == "-comp") {
+		cout << "Comparisons: " << countCompare << endl;
 	}
-	else if (argv[4] == "-both") {
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl;
+	else if ((string)argv[4] == "-both") {
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 
 	// ====== record data to file =====
@@ -324,7 +327,7 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 		start = clock();
 		SelectionSort(arr, n, comp);
 		end = clock();
-		time = (end - start) / CLOCKS_PER_SEC;
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
@@ -333,7 +336,7 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 		start = clock();
 		BubbleSort(arr, n, comp);
 		end = clock();
-		time = (end - start) / CLOCKS_PER_SEC;
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
@@ -348,7 +351,10 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 
 	else if (alg == "Heap Sort")
 	{
+		start = clock();
 		HeapSort(arr, n, comp);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
@@ -384,7 +390,11 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 
 	else if (alg == "Radix Sort")
 	{
+		start = clock();
 		RadixSort(arr, n, comp);
+		end = clock();
+
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
