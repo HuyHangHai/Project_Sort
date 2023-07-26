@@ -553,7 +553,6 @@ void CountingSort2(int* a, int n, int exp, long long& countCompare)
 	delete[] temp;
 }
 
-
 void RadixSort(int* a, int n, long long& countCompare)
 {
 	int maxValue = get_max_value(a, n, countCompare);
