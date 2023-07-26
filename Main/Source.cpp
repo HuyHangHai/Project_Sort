@@ -69,6 +69,9 @@ void command1(char** argv)
 	}
 
 	// calculate running time and comparisons
+	long long countCompare = 0;
+	double calculateTime = 0;
+	CalAlg(require, a, a1, inputSize, countCompare, calculateTime);
 
 
 	// ===== print in the format =====
@@ -77,21 +80,21 @@ void command1(char** argv)
 	cout << "Input file: " << argv[3] << endl;
 	cout << "Input size: " << inputSize << endl;
 	cout << "-------------------\n";
-	if (argv[4] == "-time") {
-		cout << "Running time: " << endl;
+	if ((string)argv[4] == "-time") {
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 	}
-	else if (argv[4] == "-comp") {
-		cout << "Comparisons: " << endl;
+	else if ((string)argv[4] == "-comp") {
+		cout << "Comparisons: " << countCompare << endl;
 	}
-	else if (argv[4] == "-both") {
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl;
+	else if ((string)argv[4] == "-both") {
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 
 	// ====== record data to file =====
 	WriteFile("output.txt", a, inputSize);
 
-	delete[] a;
+	delete[] a, a1;
 }
 
 void command2(char** argv)
@@ -358,7 +361,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		SelectionSort(arr, n, comp);
 		start = clock();
-		//SelectionSort1(arr1, n);
+		SelectionSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -448,7 +451,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		RadixSort(arr, n, comp);
 		start = clock();
-		//RadixSort1(arr1, n);
+		RadixSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -664,6 +667,18 @@ void SelectionSort(int* a, int n, long long& countCompare)
 	}
 }
 
+void SelectionSort1(int* a, int n)
+{
+	for (int i = 0; i < n - 1; i++) {
+		int minPos = i;
+		for (int j = i + 1; j < n; j++) {
+			if (a[j] < a[minPos])
+				minPos = j;
+		}
+		swap(a[i], a[minPos]);
+	}
+}
+
 // ----- Radix Sort -----
 int get_max_value(int* a, int n, long long& countCompare)
 {
@@ -671,6 +686,17 @@ int get_max_value(int* a, int n, long long& countCompare)
 
 	for (int i = 1; ++countCompare && i < n; i++) {
 		if (++countCompare && a[i] > maxValue)
+			maxValue = a[i];
+	}
+	return maxValue;
+}
+
+int get_max_value1(int* a, int n)
+{
+	int maxValue = a[0];
+
+	for (int i = 1; i < n; i++) {
+		if (a[i] > maxValue)
 			maxValue = a[i];
 	}
 	return maxValue;
@@ -703,10 +729,45 @@ void CountingSort2(int* a, int n, int exp, long long& countCompare)
 	delete[] temp;
 }
 
+void CountingSort21(int* a, int n, int exp)
+{
+
+	int count[10] = { 0 };
+
+	for (int i = 0; i < n; i++)
+		count[(a[i] / exp) % 10]++;
+
+	for (int i = 1; i < 10; i++)
+		count[i] = count[i - 1] + count[i];
+
+
+	int* temp = new int[n];
+
+	for (int i = n - 1; i >= 0; i--) {
+		temp[count[(a[i] / exp) % 10] - 1] = a[i];
+		count[(a[i] / exp) % 10]--;
+	}
+
+
+	// update for array a after sorting by current unit
+	for (int i = 0; i < n; i++)
+		a[i] = temp[i];
+
+	delete[] temp;
+}
+
 void RadixSort(int* a, int n, long long& countCompare)
 {
 	int maxValue = get_max_value(a, n, countCompare);
 
 	for (int i = 1; ++countCompare && (maxValue / i) > 0; i *= 10)
 		CountingSort2(a, n, i, countCompare);
+}
+
+void RadixSort1(int* a, int n)
+{
+	int maxValue = get_max_value1(a, n);
+
+	for (int i = 1; (maxValue / i) > 0; i *= 10)
+		CountingSort21(a, n, i);
 }
