@@ -69,6 +69,9 @@ void command1(char** argv)
 	}
 
 	// calculate running time and comparisons
+	long long countCompare = 0;
+	double calculateTime = 0;
+	CalAlg(require, a, a1, inputSize, countCompare, calculateTime);
 
 
 	// ===== print in the format =====
@@ -77,21 +80,21 @@ void command1(char** argv)
 	cout << "Input file: " << argv[3] << endl;
 	cout << "Input size: " << inputSize << endl;
 	cout << "-------------------\n";
-	if (argv[4] == "-time") {
-		cout << "Running time: " << endl;
+	if ((string)argv[4] == "-time") {
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 	}
-	else if (argv[4] == "-comp") {
-		cout << "Comparisons: " << endl;
+	else if ((string)argv[4] == "-comp") {
+		cout << "Comparisons: " << countCompare << endl;
 	}
-	else if (argv[4] == "-both") {
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl;
+	else if ((string)argv[4] == "-both") {
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 
 	// ====== record data to file =====
 	WriteFile("output.txt", a, inputSize);
 
-	delete[] a;
+	delete[] a, a1;
 }
 
 void command2(char** argv)
@@ -358,7 +361,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		SelectionSort(arr, n, comp);
 		start = clock();
-		//SelectionSort1(arr1, n);
+		SelectionSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -448,7 +451,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		RadixSort(arr, n, comp);
 		start = clock();
-		//RadixSort1(arr1, n);
+		RadixSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -736,7 +739,7 @@ void CountingSort2(int* a, int n, int exp, long long& countCompare)
 	delete[] temp;
 }
 
-void CountingSort2_1(int* a, int n, int exp)
+void CountingSort21(int* a, int n, int exp)
 {
 
 	int count[10] = { 0 };
