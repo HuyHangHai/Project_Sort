@@ -108,26 +108,33 @@ void command2(char** argv)
 	// handle input
 	if ((string)argv[4] == "-rand") {
 		GenerateRandomData(a, inputSize);
-		GenerateRandomData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 	else if ((string)argv[4] == " -nsorted") {
 		GenerateNearlySortedData(a, inputSize);
-		GenerateNearlySortedData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 	else if ((string)argv[4] == "-sorted") {
 		GenerateSortedData(a, inputSize);
-		GenerateSortedData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 	else if ((string)argv[4] == "-rev") {
 		GenerateReverseData(a, inputSize);
-		GenerateReverseData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 
 	// ====== record data to file =====
 	WriteFile("input.txt", a, inputSize);
 
 	// ====== calculate running time and comparisons ======
+	long long countCompare = 0;
+	double calculateTime = 0;
 
+	CalAlg(require, a, a1, inputSize, countCompare, calculateTime);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -136,14 +143,14 @@ void command2(char** argv)
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
 	if (argv[5] == "-time") {
-		cout << "Running time: " << endl;
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 	}
 	else if (argv[5] == "-comp") {
-		cout << "Comparisons: " << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 	else if (argv[5] == "-both") {
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl;
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 
 	delete[] a;
@@ -784,5 +791,5 @@ void RadixSort1(int* a, int n)
 	int maxValue = get_max_value1(a, n);
 
 	for (int i = 1; (maxValue / i) > 0; i *= 10)
-		CountingSort2_1(a, n, i);
+		CountingSort21(a, n, i);
 }
