@@ -30,7 +30,7 @@ void GenerateData(int a[], int n, int dataType);
 string handle_algorithm_name(string require);
 string handle_input_order(string s);
 void WriteFile(string file_name, int a[], int n);
-void CalAlg(string alg, int arr[], int n, long long& comp, double& time);
+void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& time);
 
 
 // ===== Command line =====
