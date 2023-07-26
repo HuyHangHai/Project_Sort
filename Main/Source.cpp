@@ -108,33 +108,26 @@ void command2(char** argv)
 	// handle input
 	if ((string)argv[4] == "-rand") {
 		GenerateRandomData(a, inputSize);
-		for (int i = 0; i < inputSize; i++)
-			a1[i] = a[i];
+		GenerateRandomData(a1, inputSize);
 	}
-	else if ((string)argv[4] == "-nsorted") {
+	else if ((string)argv[4] == " -nsorted") {
 		GenerateNearlySortedData(a, inputSize);
-		for (int i = 0; i < inputSize; i++)
-			a1[i] = a[i];
+		GenerateNearlySortedData(a1, inputSize);
 	}
 	else if ((string)argv[4] == "-sorted") {
 		GenerateSortedData(a, inputSize);
-		for (int i = 0; i < inputSize; i++)
-			a1[i] = a[i];
+		GenerateSortedData(a1, inputSize);
 	}
 	else if ((string)argv[4] == "-rev") {
 		GenerateReverseData(a, inputSize);
-		for (int i = 0; i < inputSize; i++)
-			a1[i] = a[i];
+		GenerateReverseData(a1, inputSize);
 	}
 
 	// ====== record data to file =====
-	WriteFile("input.txt", a1, inputSize);
+	WriteFile("input.txt", a, inputSize);
 
 	// ====== calculate running time and comparisons ======
-	long long countCompare = 0;
-	double calculateTime = 0;
 
-	CalAlg(require, a, a1, inputSize, countCompare, calculateTime);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -142,15 +135,15 @@ void command2(char** argv)
 	cout << "Input size: " << inputSize << endl;
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
-	if ((string)argv[5] == "-time") {
-		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+	if (argv[5] == "-time") {
+		cout << "Running time: " << endl;
 	}
-	else if ((string)argv[5] == "-comp") {
-		cout << "Comparisons: " << countCompare << endl;
+	else if (argv[5] == "-comp") {
+		cout << "Comparisons: " << endl;
 	}
-	else if ((string)argv[5] == "-both") {
-		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
-		cout << "Comparisons: " << countCompare << endl;
+	else if (argv[5] == "-both") {
+		cout << "Running time: " << endl;
+		cout << "Comparisons: " << endl;
 	}
 
 	delete[] a;
@@ -159,8 +152,8 @@ void command2(char** argv)
 
 void command3(char** argv)
 {
-/*  – Prototype: [Execution file] -a [Algorithm] [Input size] [Output parameter(s)]
-	– Ex: a.exe -a binary-insertion-sort 70000 -comp  */
+	/*  – Prototype: [Execution file] -a [Algorithm] [Input size] [Output parameter(s)]
+		– Ex: Main.exe -a shell-sort 100000 -both  */
 	string alg = handle_algorithm_name(argv[2]);
 	int inputSize = stoi(argv[3]);
 	string requireOutput = argv[4];
@@ -173,22 +166,22 @@ void command3(char** argv)
 
 	GenerateData(arr, inputSize, 0);
 	GenerateData(arr1, inputSize, 0);
-	WriteFile("input1.txt", arr, inputSize);
+	WriteFile("input_1.txt", arr, inputSize);
 	CalAlg(alg, arr, arr1, inputSize, comp0, time0);
 
 	GenerateData(arr, inputSize, 1);
 	GenerateData(arr1, inputSize, 1);
-	WriteFile("input2.txt", arr, inputSize);
+	WriteFile("input_3.txt", arr, inputSize);
 	CalAlg(alg, arr, arr1, inputSize, comp1, time1);
 
 	GenerateData(arr, inputSize, 2);
 	GenerateData(arr1, inputSize, 2);
-	WriteFile("input3.txt", arr, inputSize);
+	WriteFile("input_4.txt", arr, inputSize);
 	CalAlg(alg, arr, arr1, inputSize, comp2, time2);
 
 	GenerateData(arr, inputSize, 3);
 	GenerateData(arr1, inputSize, 3);
-	WriteFile("input4.txt", arr, inputSize);
+	WriteFile("input_2.txt", arr, inputSize);
 	CalAlg(alg, arr, arr1, inputSize, comp3, time3);
 
 	// ===== print in the format =====
@@ -218,11 +211,11 @@ void command3(char** argv)
 		cout << "Input order: " << "Nearly Sorted" << endl;
 		cout << "-------------------\n";
 		cout << "Comparisons: " << comp3 << endl << endl;
-		
+
 		cout << "Input order: " << "Sorted" << endl;
 		cout << "-------------------\n";
 		cout << "Comparisons: " << comp1 << endl << endl;
-		
+
 		cout << "Input order: " << "Reserved" << endl;
 		cout << "-------------------\n";
 		cout << "Comparisons: " << comp2 << endl << endl;
@@ -246,8 +239,8 @@ void command3(char** argv)
 		cout << "Running time: " << time2 << endl;
 		cout << "Comparisons: " << comp2 << endl << endl;
 	}
-	delete [] arr;
-	delete [] arr1;
+	delete[] arr;
+	delete[] arr1;
 }
 
 void command4(char** argv)
@@ -289,8 +282,8 @@ void command4(char** argv)
 	cout << "-------------------\n";
 	cout << "Running time: " << time1 << " | " << time2 << endl;
 	cout << "Comparisons: " << comp1 << " | " << comp2 << endl;
-	delete []arr;
-	delete []arr1;
+	delete[]arr;
+	delete[]arr1;
 }
 
 void command5(char** argv)
@@ -343,8 +336,8 @@ void command5(char** argv)
 	cout << "-------------------\n";
 	cout << "Running time: " << time1 << " | " << time2 << endl;
 	cout << "Comparisons: " << comp1 << " | " << comp2 << endl;
-	delete []arr;
-	delete []arr1;
+	delete[]arr;
+	delete[]arr1;
 }
 
 void WriteFile(string file_name, int a[], int n)
@@ -386,9 +379,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 	else if (alg == "Insertion Sort")
 	{
-		//InsertionSort(arr, n, comp);
+		InsertionSort(arr, n, comp);
 		start = clock();
-		//InsertionSort1(arr1, n);
+		InsertionSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -436,9 +429,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 	else if (alg == "Shell Sort")
 	{
-		//ShellSort(arr, n, comp);
+		ShellSort(arr, n, comp);
 		start = clock();
-		//ShellSort1(arr1, n);
+		ShellSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -466,9 +459,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 	else
 	{
-		//FlashSort(arr, n, comp);
+		FlashSort(arr, n, comp);
 		start = clock();
-		//FlashSort1(arr1, n);
+		FlashSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -483,7 +476,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 // ----- All sorting functions not having 1 in the end are responsible for calculating comparisons -----
 // ----- All sorting functions having 1 in the end are responsible for calculating running time -----
 
-void InsertionSort(int* a, int n)						//Khoi edited
+void InsertionSort(int* a, int n)
 {
 	for (int i = 1; i < n; i++)
 	{
@@ -497,8 +490,22 @@ void InsertionSort(int* a, int n)						//Khoi edited
 		a[j + 1] = key;
 	}
 }
-
-void ShellSort(int* a, int n)							//Khoi edited
+void InsertionSort(int* a, int n, long long& comp)
+{
+	comp = 0;
+	for (int i = 1; ++comp && i < n; i++)
+	{
+		int key = a[i];
+		int j = i - 1;
+		while (++comp && a[j] > key && ++comp && j >= 0)
+		{
+			a[j + 1] = a[j];
+			j--;
+		}
+		a[j + 1] = key;
+	}
+}
+void ShellSort(int* a, int n)
 {
 	for (int gap = n / 2; gap >= 1; gap /= 2)
 	{
@@ -515,15 +522,33 @@ void ShellSort(int* a, int n)							//Khoi edited
 		}
 	}
 }
+void ShellSort(int* a, int n, long long& comp)
+{
+	comp = 0;
+	for (int gap = n / 2; ++comp && gap >= 1; gap /= 2)
+	{
+		for (int i = gap; ++comp && i < n; i++)
+		{
+			int temp = a[i];
+			int j = i - gap;
+			while (++comp && j >= 0 && ++comp && temp < a[j])
+			{
+				a[j + gap] = a[j];
+				j -= gap;
+			}
+			a[j + gap] = temp;
+		}
+	}
+}
 
-void ShakerSort(int a[], int n, long long &count) 
+void ShakerSort(int a[], int n, long long& count)
 {
 	int left, right, k, i;
 	left = 0;
 	right = n - 1;
 	k = 0;
 	count = 0;
-	while (++count && left < right) 
+	while (++count && left < right)
 	{
 		for (i = left; ++count && i < right; i++)
 		{
@@ -537,7 +562,7 @@ void ShakerSort(int a[], int n, long long &count)
 
 		for (i = right; ++count && i > left; i--)
 		{
-			if (++count && a[i] < a[i - 1]) 
+			if (++count && a[i] < a[i - 1])
 			{
 				swap(a[i], a[i - 1]);
 				k = i;
@@ -546,7 +571,6 @@ void ShakerSort(int a[], int n, long long &count)
 		left = k;
 	}
 }
-
 void ShakerSort1(int a[], int n)
 {
 	int left, right, k, i;
@@ -577,7 +601,7 @@ void ShakerSort1(int a[], int n)
 	}
 }
 
-void Heapify(int arr[], int n, int i, long long &count)
+void Heapify(int arr[], int n, int i, long long& count)
 {
 	int largest = i;
 
@@ -586,21 +610,20 @@ void Heapify(int arr[], int n, int i, long long &count)
 
 	// right = 2*i + 2
 	int r = 2 * i + 2;
-	
+
 	if ((++count && l < n) && (++count && arr[l] > arr[largest]))
 		largest = l;
 
 	if ((++count && r < n) && (++count && arr[r] > arr[largest]))
 		largest = r;
 
-	if (++count && largest != i) 
+	if (++count && largest != i)
 	{
 		swap(arr[i], arr[largest]);
 		Heapify(arr, n, largest, count);
 	}
 }
-
-void HeapSort(int arr[], int n, long long &count)
+void HeapSort(int arr[], int n, long long& count)
 {
 	// Build heap
 	for (int i = n / 2 - 1; ++count && i >= 0; i--)
@@ -609,7 +632,7 @@ void HeapSort(int arr[], int n, long long &count)
 	}
 
 	// One by one extract an element
-	for (int i = n - 1; ++count && i > 0; i--) 
+	for (int i = n - 1; ++count && i > 0; i--)
 	{
 		swap(arr[0], arr[i]);
 		Heapify(arr, i, 0, count);
@@ -638,7 +661,6 @@ void Heapify1(int arr[], int n, int i)
 		Heapify1(arr, n, largest);
 	}
 }
-
 void HeapSort1(int arr[], int n)
 {
 	// Build heap
@@ -665,7 +687,6 @@ void BubbleSort(int arr[], int n, long long& countCompare)
 		}
 	}
 }
-
 void BubbleSort1(int arr[], int n)
 {
 	for (int i = n - 1; i >= 1; i--) {
@@ -688,7 +709,6 @@ void SelectionSort(int* a, int n, long long& countCompare)
 		swap(a[i], a[minPos]);
 	}
 }
-
 void SelectionSort1(int* a, int n)
 {
 	for (int i = 0; i < n - 1; i++) {
@@ -712,7 +732,6 @@ int get_max_value(int* a, int n, long long& countCompare)
 	}
 	return maxValue;
 }
-
 int get_max_value1(int* a, int n)
 {
 	int maxValue = a[0];
@@ -750,7 +769,6 @@ void CountingSort2(int* a, int n, int exp, long long& countCompare)
 
 	delete[] temp;
 }
-
 void CountingSort21(int* a, int n, int exp)
 {
 
@@ -785,11 +803,145 @@ void RadixSort(int* a, int n, long long& countCompare)
 	for (int i = 1; ++countCompare && (maxValue / i) > 0; i *= 10)
 		CountingSort2(a, n, i, countCompare);
 }
-
 void RadixSort1(int* a, int n)
 {
 	int maxValue = get_max_value1(a, n);
 
 	for (int i = 1; (maxValue / i) > 0; i *= 10)
 		CountingSort21(a, n, i);
+}
+
+
+
+//---------------------FLASH SORT------------------------
+void FlashSort(int* a, int n)
+{
+	//find min, max of Array a
+	int minn = a[0];
+	int maxx = 0;
+	for (int i = 0; i < n; i++)
+	{
+		maxx = max(maxx, a[i]);
+		minn = min(minn, a[i]);
+	}
+
+	//define number of buckets
+	int m = 0.43 * n;
+	int* Bucket = new int[m];
+	for (int i = 0; i < m; i++)
+	{
+		Bucket[i] = 0;
+	}
+
+	//define number of keys in each bucket
+	for (int i = 0; i < n; i++)
+	{
+		int k = (m - 1) * (a[i] - minn) / (maxx - minn);		//later explaining :D
+		Bucket[k]++;
+	}
+
+	//same as Counting Sort, find the LAST INDEX of each bucket
+	for (int i = 1; i < m; i++)
+	{
+		Bucket[i] += Bucket[i - 1];
+	}
+
+	//now move all keys that not in correct bucket to the correct one
+	int j = 0;
+	int move = 0;
+	int k = (m - 1) * (a[j] - minn) / (maxx - minn);		//later explaining :D
+	while (move < n)
+	{
+		while (j < n && Bucket[k] == 0)
+		{
+			j++;
+			k = (m - 1) * (a[j] - minn) / (maxx - minn);
+		}
+
+		while (Bucket[k] != 0)
+		{
+			//swapping
+			int tmp = a[Bucket[k] - 1];
+			a[Bucket[k] - 1] = a[j];
+			a[j] = tmp;
+
+			Bucket[k]--;
+			k = (m - 1) * (a[j] - minn) / (maxx - minn);
+			move++;
+		}
+
+
+	}
+
+	delete[]Bucket;
+
+	//now every keys are in the correct bucket, just implement Insertion Sort here :D
+	InsertionSort(a, n);
+}
+void FlashSort(int* a, int n, long long& comp)
+{
+	comp = 0;
+	//find min, max of Array a
+	int minn = a[0];
+	int maxx = 0;
+	for (int i = 0; ++comp && i < n; i++)
+	{
+		if (++comp && minn > a[i])
+			minn = a[i];
+		if (++comp && maxx < a[i])
+			maxx = a[i];
+	}
+
+	//define number of buckets
+	int m = 0.43 * n;
+	int* Bucket = new int[m];
+	for (int i = 0; ++comp && i < m; i++)
+	{
+		Bucket[i] = 0;
+	}
+
+	//define number of keys in each bucket
+	for (int i = 0; ++comp && i < n; i++)
+	{
+		int k = (m - 1) * (a[i] - minn) / (maxx - minn);		//later explaining :D
+		Bucket[k]++;
+	}
+
+	//same as Counting Sort, find the LAST INDEX of each bucket
+	for (int i = 1; ++comp && i < m; i++)
+	{
+		Bucket[i] += Bucket[i - 1];
+	}
+
+	//now move all keys that not in correct bucket to the correct one
+	int j = 0;
+	int move = 0;
+	int k = (m - 1) * (a[j] - minn) / (maxx - minn);		//later explaining :D
+	while (++comp && move < n)
+	{
+		while (++comp && j < n && ++comp && Bucket[k] == 0)
+		{
+			j++;
+			k = (m - 1) * (a[j] - minn) / (maxx - minn);
+		}
+
+		while (++comp && Bucket[k] != 0)
+		{
+			//swapping
+			int tmp = a[Bucket[k] - 1];
+			a[Bucket[k] - 1] = a[j];
+			a[j] = tmp;
+
+			Bucket[k]--;
+			k = (m - 1) * (a[j] - minn) / (maxx - minn);
+			move++;
+		}
+
+
+	}
+
+	delete[]Bucket;
+
+	//now every keys are in the correct bucket, just implement Insertion Sort here :D
+	InsertionSort(a, n, comp);
 }
