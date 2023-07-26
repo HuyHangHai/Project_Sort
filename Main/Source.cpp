@@ -111,7 +111,7 @@ void command2(char** argv)
 		for (int i = 0; i < inputSize; i++)
 			a1[i] = a[i];
 	}
-	else if ((string)argv[4] == " -nsorted") {
+	else if ((string)argv[4] == "-nsorted") {
 		GenerateNearlySortedData(a, inputSize);
 		for (int i = 0; i < inputSize; i++)
 			a1[i] = a[i];
@@ -128,7 +128,7 @@ void command2(char** argv)
 	}
 
 	// ====== record data to file =====
-	WriteFile("input.txt", a, inputSize);
+	WriteFile("input.txt", a1, inputSize);
 
 	// ====== calculate running time and comparisons ======
 	long long countCompare = 0;
