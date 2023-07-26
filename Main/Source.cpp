@@ -361,7 +361,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		SelectionSort(arr, n, comp);
 		start = clock();
-		SelectionSort1(arr1, n);
+		SelectionSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -371,7 +371,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		BubbleSort(arr, n, comp);
 		start = clock();
-		BubbleSort1(arr1, n);
+		BubbleSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -451,7 +451,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		RadixSort(arr, n, comp);
 		start = clock();
-		RadixSort1(arr1, n);
+		RadixSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -472,9 +472,6 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 
 //================SORTING====================
-
-// ----- All sorting functions not having 1 in the end are responsible for calculating comparisons -----
-// ----- All sorting functions having 1 in the end are responsible for calculating running time -----
 
 void InsertionSort(int* a, int n)
 {
@@ -687,7 +684,7 @@ void BubbleSort(int arr[], int n, long long& countCompare)
 		}
 	}
 }
-void BubbleSort1(int arr[], int n)
+void BubbleSort(int arr[], int n)
 {
 	for (int i = n - 1; i >= 1; i--) {
 		// compare adjacent pairs of items
@@ -709,7 +706,7 @@ void SelectionSort(int* a, int n, long long& countCompare)
 		swap(a[i], a[minPos]);
 	}
 }
-void SelectionSort1(int* a, int n)
+void SelectionSort(int* a, int n)
 {
 	for (int i = 0; i < n - 1; i++) {
 		int minPos = i;
@@ -732,7 +729,7 @@ int get_max_value(int* a, int n, long long& countCompare)
 	}
 	return maxValue;
 }
-int get_max_value1(int* a, int n)
+int get_max_value(int* a, int n)
 {
 	int maxValue = a[0];
 
@@ -769,7 +766,7 @@ void CountingSort2(int* a, int n, int exp, long long& countCompare)
 
 	delete[] temp;
 }
-void CountingSort21(int* a, int n, int exp)
+void CountingSort2(int* a, int n, int exp)
 {
 
 	int count[10] = { 0 };
@@ -803,12 +800,12 @@ void RadixSort(int* a, int n, long long& countCompare)
 	for (int i = 1; ++countCompare && (maxValue / i) > 0; i *= 10)
 		CountingSort2(a, n, i, countCompare);
 }
-void RadixSort1(int* a, int n)
+void RadixSort(int* a, int n)
 {
-	int maxValue = get_max_value1(a, n);
+	int maxValue = get_max_value(a, n);
 
 	for (int i = 1; (maxValue / i) > 0; i *= 10)
-		CountingSort21(a, n, i);
+		CountingSort2(a, n, i);
 }
 
 

@@ -60,18 +60,18 @@ void Heapify1(int arr[], int n, int i);
 void HeapSort1(int arr[], int n);
 
 void BubbleSort(int arr[], int n, long long& countCompare);
-void BubbleSort1(int arr[], int n);
+void BubbleSort(int arr[], int n);
 
 void SelectionSort(int* a, int n, long long& countCompare);
-void SelectionSort1(int* a, int n);
+void SelectionSort(int* a, int n);
 
 // -----Radix Sort-----
 int get_max_value(int* a, int n, long long& countCompare);
-int get_max_value1(int* a, int n);
+int get_max_value(int* a, int n);
 void CountingSort2(int* a, int n, int exp, long long& countCompare);
-void CountingSort21(int* a, int n, int exp);
+void CountingSort2(int* a, int n, int exp);
 void RadixSort(int* a, int n, long long& countCompare);
-void RadixSort1(int* a, int n);
+void RadixSort(int* a, int n);
 
 
 void FlashSort(int* a, int n);
