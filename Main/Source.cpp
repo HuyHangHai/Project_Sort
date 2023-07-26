@@ -321,76 +321,111 @@ void CalAlg(string alg, int arr[], int n, long long& comp, double& time)
 	clock_t start, end;
 	if (alg == "Selection Sort")
 	{
-		start = clock();
 		SelectionSort(arr, n, comp);
+		start = clock();
+		//SelectionSort1(arr, n);
 		end = clock();
-		time = (end - start) / CLOCKS_PER_SEC;
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Bubble Sort")
 	{
-		start = clock();
 		BubbleSort(arr, n, comp);
+		start = clock();
+		//BubbleSort1(arr, n);
 		end = clock();
-		time = (end - start) / CLOCKS_PER_SEC;
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Insertion Sort")
 	{
-		start = clock();
 		//InsertionSort(arr, n, comp);
+		start = clock();
+		//InsertionSort1(arr, n);
 		end = clock();
-		time = (end - start) / CLOCKS_PER_SEC;
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Heap Sort")
 	{
 		HeapSort(arr, n, comp);
+		start = clock();
+		HeapSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Merge Sort")
 	{
 		//MergeSort(arr, n, comp);
+		start = clock();
+		//MergeSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Quick Sort")
 	{
 		//QuickSort(arr, n, comp);
+		start = clock();
+		//QuickSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Shaker Sort")
 	{
 		ShakerSort(arr, n, comp);
+		start = clock();
+		ShakerSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Shell Sort")
 	{
 		//ShellSort(arr, n, comp);
+		start = clock();
+		//ShellSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Counting Sort")
 	{
 		//CountingSort(arr, n, comp);
+		start = clock();
+		//CountingSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else if (alg == "Radix Sort")
 	{
 		RadixSort(arr, n, comp);
+		start = clock();
+		//RadixSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 
 	else
 	{
 		//FlashSort(arr, n, comp);
+		start = clock();
+		//FlashSort1(arr, n);
+		end = clock();
+		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
 	}
 }
