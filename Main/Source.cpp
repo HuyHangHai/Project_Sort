@@ -142,13 +142,13 @@ void command2(char** argv)
 	cout << "Input size: " << inputSize << endl;
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
-	if (argv[5] == "-time") {
+	if ((string)argv[5] == "-time") {
 		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 	}
-	else if (argv[5] == "-comp") {
+	else if ((string)argv[5] == "-comp") {
 		cout << "Comparisons: " << countCompare << endl;
 	}
-	else if (argv[5] == "-both") {
+	else if ((string)argv[5] == "-both") {
 		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 		cout << "Comparisons: " << countCompare << endl;
 	}
