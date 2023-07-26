@@ -473,6 +473,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 //================SORTING====================
 
+// ----- All functions not having 1 in the end are responsible for calculating comparisons -----
+// ----- All functions having 1 in the end are responsible for calculating running time -----
+
 void InsertionSort(int* a, int n)						//Khoi edited
 {
 	for (int i = 1; i < n; i++)
