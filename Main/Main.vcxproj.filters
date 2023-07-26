@@ -31,10 +31,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="output.txt">
+    <Text Include="..\x64\Debug\input.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

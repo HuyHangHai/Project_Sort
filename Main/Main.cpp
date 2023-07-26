@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-	/*if (argc < 2)	return 0;
+	if (argc < 2)	return 0;
 
 	int require = check_command(argc, argv);
 	switch (require)
@@ -34,18 +34,7 @@ int main(int argc, char** argv)
 		}
 	default:
 		break;
-	}*/
-
-	int n = 100000, count = 0;
-	int* arr = new int[n];
-	GenerateData(arr, n, 0);
-	clock_t start, end;
-	start = clock();
-	ShakerSort1(arr, n);
-	end = clock();
-	double time = (double)(end - start) / CLOCKS_PER_SEC;
-	cout << time;
-	delete[]arr;
+	}
 
 	return 0;
 

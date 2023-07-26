@@ -467,6 +467,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 
 
+
 //================SORTING====================
 
 void InsertionSort(int* a, int n)						//Khoi edited
