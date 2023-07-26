@@ -371,7 +371,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		BubbleSort(arr, n, comp);
 		start = clock();
-		//BubbleSort1(arr1, n);
+		BubbleSort1(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -645,12 +645,24 @@ void HeapSort1(int arr[], int n)
 	}
 }
 
-void BubbleSort(int* a, int n, long long& countCompare)
+void BubbleSort(int arr[], int n, long long& countCompare)
 {
-	for (int i = 0; ++countCompare && i < n - 1; i++) {
-		for (int j = 0; ++countCompare && j < n - 1 - i; j++) {
-			if (++countCompare && a[j + 1] < a[j])
-				swap(a[j + 1], a[j]);
+	for (int i = n - 1; ++countCompare && i >= 1; i--) {
+		// compare adjacent pairs of items
+		for (int j = 1; ++countCompare && j <= i; j++) {
+			if (++countCompare && arr[j - 1] > arr[j])
+				swap(arr[j - 1], arr[j]); //if items are out of order
+		}
+	}
+}
+
+void BubbleSort1(int arr[], int n)
+{
+	for (int i = n - 1; i >= 1; i--) {
+		// compare adjacent pairs of items
+		for (int j = 1; j <= i; j++) {
+			if (arr[j - 1] > arr[j])
+				swap(arr[j - 1], arr[j]); //if items are out of order
 		}
 	}
 }

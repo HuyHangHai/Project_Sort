@@ -53,7 +53,8 @@ void Heapify(int arr[], int n, int i, long long &count);
 void HeapSort(int arr[], int n, long long &count);
 void Heapify1(int arr[], int n, int i);
 void HeapSort1(int arr[], int n);
-void BubbleSort(int* a, int n, long long& countCompare);
+void BubbleSort(int arr[], int n, long long& countCompare);
+void BubbleSort1(int arr[], int n);
 void SelectionSort(int* a, int n, long long& countCompare);
 void SelectionSort1(int* a, int n);
 // -----Radix Sort-----
