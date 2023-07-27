@@ -58,15 +58,13 @@ void command1(char** argv)
 	f >> inputSize;
 
 	int* a = new int[inputSize];
-	for (int i = 0; i < inputSize; i++)
-		f >> a[i];
-	f.close();
-
 	int* a1 = new int[inputSize];
-	for (int i = 0; i < inputSize; i++)
-	{
+	for (int i = 0; i < inputSize; i++) {
+		f >> a[i];
 		a1[i] = a[i];
 	}
+		
+	f.close();
 
 	// calculate running time and comparisons
 	long long countCompare = 0;
@@ -92,7 +90,7 @@ void command1(char** argv)
 	}
 
 	// ====== record data to file =====
-	WriteFile("output.txt", a, inputSize);
+	//WriteFile("output.txt", a, inputSize);
 
 	delete[] a, a1;
 }
@@ -108,23 +106,27 @@ void command2(char** argv)
 	// handle input
 	if ((string)argv[4] == "-rand") {
 		GenerateRandomData(a, inputSize);
-		GenerateRandomData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 	else if ((string)argv[4] == "-nsorted") {
 		GenerateNearlySortedData(a, inputSize);
-		GenerateNearlySortedData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 	else if ((string)argv[4] == "-sorted") {
 		GenerateSortedData(a, inputSize);
-		GenerateSortedData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 	else if ((string)argv[4] == "-rev") {
 		GenerateReverseData(a, inputSize);
-		GenerateReverseData(a1, inputSize);
+		for (int i = 0; i < inputSize; i++)
+			a1[i] = a[i];
 	}
 
 	// ====== record data to file =====
-	WriteFile("input.txt", a, inputSize);
+	//WriteFile("input.txt", a1, inputSize);
 
 	// ====== calculate running time and comparisons ======
 
@@ -135,13 +137,13 @@ void command2(char** argv)
 	cout << "Input size: " << inputSize << endl;
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
-	if (argv[5] == "-time") {
+	if ((string)argv[5] == "-time") {
 		cout << "Running time: " << endl;
 	}
-	else if (argv[5] == "-comp") {
+	else if ((string)argv[5] == "-comp") {
 		cout << "Comparisons: " << endl;
 	}
-	else if (argv[5] == "-both") {
+	else if ((string)argv[5] == "-both") {
 		cout << "Running time: " << endl;
 		cout << "Comparisons: " << endl;
 	}
