@@ -129,7 +129,9 @@ void command2(char** argv)
 	WriteFile("input.txt", a1, inputSize);
 
 	// ====== calculate running time and comparisons ======
-
+	long long countCompare = 0;
+	double calculateTime = 0;
+	CalAlg(require, a, a1, inputSize, countCompare, calculateTime);
 
 	// ===== print in the format =====
 	cout << "ALGORITHM MODE\n";
@@ -138,14 +140,14 @@ void command2(char** argv)
 	cout << "Input order: " << inputOrder << endl;
 	cout << "-------------------\n";
 	if ((string)argv[5] == "-time") {
-		cout << "Running time: " << endl;
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
 	}
 	else if ((string)argv[5] == "-comp") {
-		cout << "Comparisons: " << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 	else if ((string)argv[5] == "-both") {
-		cout << "Running time: " << endl;
-		cout << "Comparisons: " << endl;
+		cout << "Running time: " << setprecision(5) << fixed << calculateTime << endl;
+		cout << "Comparisons: " << countCompare << endl;
 	}
 
 	delete[] a;
