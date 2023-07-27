@@ -395,7 +395,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		HeapSort(arr, n, comp);
 		start = clock();
-		HeapSort1(arr1, n);
+		HeapSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -425,7 +425,7 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 	{
 		ShakerSort(arr, n, comp);
 		start = clock();
-		ShakerSort1(arr1, n);
+		ShakerSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -572,7 +572,7 @@ void ShakerSort(int a[], int n, long long& count)
 		left = k;
 	}
 }
-void ShakerSort1(int a[], int n)
+void ShakerSort(int a[], int n)
 {
 	int left, right, k, i;
 	left = 0;
@@ -640,7 +640,7 @@ void HeapSort(int arr[], int n, long long& count)
 	}
 }
 
-void Heapify1(int arr[], int n, int i)
+void Heapify(int arr[], int n, int i)
 {
 	int largest = i;
 
@@ -659,22 +659,22 @@ void Heapify1(int arr[], int n, int i)
 	if (largest != i)
 	{
 		swap(arr[i], arr[largest]);
-		Heapify1(arr, n, largest);
+		Heapify(arr, n, largest);
 	}
 }
-void HeapSort1(int arr[], int n)
+void HeapSort(int arr[], int n)
 {
 	// Build heap
 	for (int i = n / 2 - 1; i >= 0; i--)
 	{
-		Heapify1(arr, n, i);
+		Heapify(arr, n, i);
 	}
 
 	// One by one extract an element
 	for (int i = n - 1; i > 0; i--)
 	{
 		swap(arr[0], arr[i]);
-		Heapify1(arr, i, 0);
+		Heapify(arr, i, 0);
 	}
 }
 
