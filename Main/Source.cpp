@@ -90,7 +90,7 @@ void command1(char** argv)
 	}
 
 	// ====== record data to file =====
-	//WriteFile("output.txt", a, inputSize);
+	WriteFile("output.txt", a, inputSize);
 
 	delete[] a, a1;
 }
@@ -126,7 +126,7 @@ void command2(char** argv)
 	}
 
 	// ====== record data to file =====
-	//WriteFile("input.txt", a1, inputSize);
+	WriteFile("input.txt", a1, inputSize);
 
 	// ====== calculate running time and comparisons ======
 
