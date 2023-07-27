@@ -110,7 +110,7 @@ void command2(char** argv)
 		GenerateRandomData(a, inputSize);
 		GenerateRandomData(a1, inputSize);
 	}
-	else if ((string)argv[4] == " -nsorted") {
+	else if ((string)argv[4] == "-nsorted") {
 		GenerateNearlySortedData(a, inputSize);
 		GenerateNearlySortedData(a1, inputSize);
 	}
