@@ -403,9 +403,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 	else if (alg == "Merge Sort")
 	{
-		//MergeSort(arr, n, comp);
+		MergeSort(arr, 0, n - 1, comp);
 		start = clock();
-		//MergeSort1(arr1, n);
+		MergeSort(arr1, 0, n - 1);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -413,9 +413,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 	else if (alg == "Quick Sort")
 	{
-		//QuickSort(arr, n, comp);
+		QuickSort(arr, 0, n - 1, comp);
 		start = clock();
-		//QuickSort1(arr1, n);
+		QuickSort(arr1, 0, n - 1);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -443,9 +443,9 @@ void CalAlg(string alg, int arr[], int arr1[], int n, long long& comp, double& t
 
 	else if (alg == "Counting Sort")
 	{
-		//CountingSort(arr, n, comp);
+		CountingSort(arr, n, comp);
 		start = clock();
-		//CountingSort1(arr1, n);
+		CountingSort(arr1, n);
 		end = clock();
 		time = (double)(end - start) / CLOCKS_PER_SEC;
 		return;
@@ -720,6 +720,258 @@ void SelectionSort(int* a, int n)
 		}
 		swap(a[i], a[minPos]);
 	}
+}
+
+void Merge(int*& arr, int first, int mid, int last)
+{
+	//Temporary array to merge 2 sub array: a[first...mid] and a[mid+1...last-1]
+	int* tmp_arr = new int[last + 1];
+	int f1 = first, l1 = mid;
+	int f2 = mid + 1, l2 = last;
+	int i = first;
+	while ((f1 <= l1) && (f2 <= l2)) {
+		if (arr[f1] < arr[f2]) {
+			tmp_arr[i] = arr[f1];
+			f1++;
+		}
+		else {
+			tmp_arr[i] = arr[f2];
+			f2++;
+		}
+		i++;
+	}
+	//At this step, one sub array has no item left
+	while (f1 <= l1) { //left subarray has items
+		tmp_arr[i] = arr[f1];
+		f1++;
+		i++;
+	}
+	while (f2 <= l2) { //right subarray has items
+		tmp_arr[i] = arr[f2];
+		f2++;
+		i++;
+	}
+	//Copy back to the original array arr
+	for (i = first; i <= last; i++)
+		arr[i] = tmp_arr[i];
+	delete[] tmp_arr;
+}
+void MergeSort(int*& arr, int first, int last)
+{
+	if (first >= last)
+		return;
+	int mid = (first + last) / 2;
+	MergeSort(arr, first, mid);
+	MergeSort(arr, mid + 1, last);
+	Merge(arr, first, mid, last);
+
+}
+
+void Merge(int*& arr, int first, int mid, int last, long long& comparisons) {
+	int* tmp_arr = new int[last + 1];
+	int f1 = first, l1 = mid;
+	int f2 = mid + 1, l2 = last;
+	int i = first;
+
+	while ((f1 <= l1) && (f2 <= l2)) {
+		comparisons += 2;
+		comparisons++;
+		if (arr[f1] < arr[f2]) {
+			tmp_arr[i] = arr[f1];
+			f1++;
+		}
+		else {
+			tmp_arr[i] = arr[f2];
+			f2++;
+		}
+		i++;
+	}
+	comparisons += 2;
+
+	while (++comparisons && f1 <= l1) {
+		tmp_arr[i] = arr[f1];
+		f1++;
+		i++;
+	}
+	while (++comparisons && f2 <= l2) {
+		tmp_arr[i] = arr[f2];
+		f2++;
+		i++;
+	}
+
+	for (i = first; ++comparisons && i <= last; i++)
+		arr[i] = tmp_arr[i];
+
+	delete[] tmp_arr;
+}
+void MergeSort(int*& arr, int first, int last, long long& comparisons) {
+	if (++comparisons && first >= last) {
+		return;
+	}
+	int mid = (first + last) / 2;
+	MergeSort(arr, first, mid, comparisons);
+	MergeSort(arr, mid + 1, last, comparisons);
+	Merge(arr, first, mid, last, comparisons);
+}
+
+// Function to partition the array using the middle element as the pivot
+int partition(int*& arr, int low, int high) {
+	// Find the middle index
+	int mid = low + (high - low) / 2;
+	int pivot = arr[mid];
+
+	// Move the pivot to the end of the array
+	swap(arr[mid], arr[high]);
+
+	int i = low - 1;
+
+	for (int j = low; j <= high - 1; j++) {
+		if (arr[j] <= pivot) {
+			i++;
+			swap(arr[i], arr[j]);
+		}
+	}
+
+	// Move the pivot to its correct position
+	swap(arr[i + 1], arr[high]);
+	return i + 1;
+}
+// Recursive function to perform QuickSort
+void QuickSort(int*& arr, int low, int high)
+{
+	if (low < high) {
+		int pivotIndex = partition(arr, low, high);
+
+		// Recursively sort elements before and after the pivot
+		QuickSort(arr, low, pivotIndex - 1);
+		QuickSort(arr, pivotIndex + 1, high);
+	}
+}
+
+// Function to partition the array using the middle element as the pivot
+int partition(int*& arr, int low, int high, long long& comparisons) {
+	// Find the middle index
+	int mid = low + (high - low) / 2;
+	int pivot = arr[mid];
+
+	// Move the pivot to the end of the array
+	swap(arr[mid], arr[high]);
+
+	int i = low - 1;
+
+	for (int j = low; ++comparisons && j <= high - 1; j++) {
+		if (++comparisons && arr[j] <= pivot) {
+			i++;
+			swap(arr[i], arr[j]);
+		}
+	}
+
+	// Move the pivot to its correct position
+	swap(arr[i + 1], arr[high]);
+	return i + 1;
+}
+// Recursive function to perform QuickSort
+void QuickSort(int*& arr, int low, int high, long long& comparisons)
+{
+	if (++comparisons && low < high) {
+		int pivotIndex = partition(arr, low, high, comparisons);
+
+		// Recursively sort elements before and after the pivot
+		QuickSort(arr, low, pivotIndex - 1, comparisons);
+		QuickSort(arr, pivotIndex + 1, high, comparisons);
+	}
+}
+
+void CountingSort(int*& arr, int n)
+{
+	//Find the "max value" element
+	int max = arr[0];
+	for (int i = 1; i < n; ++i)
+	{
+		if (arr[i] > max) max = arr[i];
+	}
+
+	//Count the number of appearances of each element
+	int* counting_array = new int[max + 1];
+	for (int i = 0; i <= max; ++i)
+		counting_array[i] = 0;
+
+	for (int i = 0; i < n; ++i)
+	{
+		++counting_array[arr[i]];
+	}
+
+	for (int j = 1; j <= max; ++j)
+	{
+		counting_array[j] = counting_array[j - 1] + counting_array[j];
+	}
+
+	//Use a sub array to sort
+	//This step can be replaced by returning a pointer to the sorted array; however, it will consume more storage
+	//Thus, this will help the program consume less storage (RAM), though a little bit slower
+	int* sorted_array = new int[n];
+
+	for (int i = n - 1; i >= 0; --i)
+	{
+		sorted_array[counting_array[arr[i]] - 1] = arr[i];
+		--counting_array[arr[i]];
+	}
+
+	//copy back to the original array
+	for (int i = 0; i < n; ++i)
+		arr[i] = sorted_array[i];
+
+	delete[] sorted_array;
+	sorted_array = NULL;
+	delete[] counting_array;
+	counting_array = NULL;
+
+}
+void CountingSort(int*& arr, int n, long long& comparisons)
+{
+	//Find the "max value" element
+	int max = arr[0];
+	for (int i = 1; ++comparisons && i < n; ++i)
+	{
+		if (++comparisons && arr[i] > max) max = arr[i];
+	}
+
+	//Count the number of appearances of each element
+	int* counting_array = new int[max + 1];
+	for (int i = 0; ++comparisons && i <= max; ++i)
+		counting_array[i] = 0;
+
+	for (int i = 0; ++comparisons && i < n; ++i)
+	{
+		++counting_array[arr[i]];
+	}
+
+	for (int j = 1; ++comparisons && j <= max; ++j)
+	{
+		counting_array[j] = counting_array[j - 1] + counting_array[j];
+	}
+
+	////// Use a sub array to sort
+	//This step can be replaced by returning a pointer to the sorted array; however, it will consume more storage
+	//Thus, this will help the program consume less storage (RAM), though a little bit slower
+	int* sorted_array = new int[n];
+
+	//The comparisons will also be calculated
+	for (int i = n - 1; ++comparisons && i >= 0; --i)
+	{
+		sorted_array[counting_array[arr[i]] - 1] = arr[i];
+		--counting_array[arr[i]];
+	}
+
+	//copy back to the original array
+	for (int i = 0; ++comparisons && i < n; ++i)
+		arr[i] = sorted_array[i];
+
+	delete[] sorted_array;
+	sorted_array = NULL;
+	delete[] counting_array;
+	counting_array = NULL;
+
 }
 
 // ----- Radix Sort -----

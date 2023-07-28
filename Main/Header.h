@@ -65,6 +65,17 @@ void BubbleSort(int arr[], int n);
 void SelectionSort(int* a, int n, long long& countCompare);
 void SelectionSort(int* a, int n);
 
+void CountingSort(int*& arr, int n, long long& comparisons);
+void CountingSort(int*& arr, int n);
+void QuickSort(int*& arr, int low, int high, long long& comparisons);
+int partition(int*& arr, int low, int high, long long& comparisons);
+void QuickSort(int*& arr, int low, int high);
+int partition(int*& arr, int low, int high);
+void Merge(int*& arr, int first, int mid, int last, long long& comparisons);
+void Merge(int*& arr, int first, int mid, int last);
+void MergeSort(int*& arr, int first, int last, long long& comparisons);
+void MergeSort(int*& arr, int first, int last);
+
 // -----Radix Sort-----
 int get_max_value(int* a, int n, long long& countCompare);
 int get_max_value(int* a, int n);
